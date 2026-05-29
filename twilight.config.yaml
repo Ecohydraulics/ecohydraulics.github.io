@@ -142,7 +142,15 @@ site:
             # 动画周期 (s)
             interval: 1.5
     # favicon 配置
-    favicon: []
+    favicon:
+        - src: "/favicon/ecohydraulics-32.png"
+          sizes: "32x32"
+        - src: "/favicon/ecohydraulics-96.png"
+          sizes: "96x96"
+        - src: "/favicon/ecohydraulics-180.png"
+          sizes: "180x180"
+        - src: "/favicon/ecohydraulics-192.png"
+          sizes: "192x192"
     # bangumi 配置
     bangumi:
         # 用户 ID
