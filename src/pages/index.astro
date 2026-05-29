@@ -1,0 +1,112 @@
+---
+export const prerender = true;
+
+import { render } from "astro:content";
+
+import { getSortedPosts } from "@utils/post";
+import { getChannelVideos } from "@utils/youtube";
+import GridLayout from "@layouts/grid.astro";
+import Markdown from "@components/common/markdown.astro";
+import PostCard from "@components/post/postCard.astro";
+import Carousel from "@components/carousel.astro";
+
+
+// Pinned welcome post (welcome.md) shown above everything; excluded from the rotating carousel.
+const allPosts = await getSortedPosts();
+const welcome = allPosts.find((p) => p.id.endsWith("welcome")) ?? null;
+const WelcomeContent = welcome ? (await render(welcome)).Content : null;
+const carouselPosts = allPosts.filter((p) => p !== welcome);
+
+// Latest videos from the @ecohydraulics9581 channel (fetched at build time).
+const videos = await getChannelVideos(12);
+---
+
+<GridLayout description="Ecohydraulics community — from the community for the community.">
+    <!-- Welcome panel (always on top) -->
+    {welcome && (
+        <section class="card-base px-6 py-6 md:px-9 mb-4">
+            <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
+                {welcome.data.title}
+            </h2>
+            <Markdown class="mt-1">
+                <WelcomeContent />
+            </Markdown>
+        </section>
+    )}
+
+    <!-- Blog: one panel rotating through all posts -->
+    {carouselPosts.length > 0 && (
+        <section class="card-base px-4 py-5 md:px-6 mb-4">
+            <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4 px-1">
+                From the blog
+            </h2>
+            <Carousel autoplay={7000} ariaLabel="Blog posts" class="px-8">
+                {carouselPosts.map((entry) => (
+                    <div class="ehy-slide w-full shrink-0 snap-start px-1">
+                        <PostCard entry={entry} />
+                    </div>
+                ))}
+            </Carousel>
+        </section>
+    )}
+
+    <!-- YouTube: one panel sliding through channel videos -->
+    {videos.length > 0 && (
+        <section class="card-base px-4 py-5 md:px-6 mb-4">
+            <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-1 px-1">
+                From our YouTube channel
+            </h2>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4 px-1">
+                <a class="link text-(--primary) font-medium" href="https://www.youtube.com/@ecohydraulics9581" target="_blank" rel="noopener">@ecohydraulics9581</a>
+            </p>
+            <Carousel autoplay={0} ariaLabel="YouTube videos" class="px-8">
+                {videos.map((v) => (
+                    <div class="ehy-slide w-full shrink-0 snap-start px-1">
+                        <div class="yt-embed relative rounded-xl overflow-hidden bg-black/80" style="aspect-ratio:16/9" data-video-id={v.id}>
+                            <button type="button" class="yt-play group absolute inset-0 w-full h-full" aria-label={`Play video: ${v.title}`}>
+                                <img
+                                    src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+                                    alt={v.title}
+                                    loading="lazy"
+                                    class="w-full h-full object-cover transition group-hover:scale-105"
+                                />
+                                <span class="absolute inset-0 grid place-items-center">
+                                    <span class="w-16 h-16 rounded-full grid place-items-center bg-black/55 group-hover:bg-(--primary) transition text-white text-3xl pl-1">▶</span>
+                                </span>
+                            </button>
+                            <div class="yt-title absolute bottom-0 left-0 right-0 p-3 text-white text-sm font-medium bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+                                {v.title}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </Carousel>
+        </section>
+    )}
+</GridLayout>
+
+<script>
+    // Click-to-play: only contact YouTube (which sets cookies) once the visitor
+    // actually clicks a video, keeping the initial page load lighter and quieter.
+    function wireYouTube() {
+        document.querySelectorAll<HTMLButtonElement>(".yt-play").forEach((btn) => {
+            if ((btn as any).__wired) return;
+            (btn as any).__wired = true;
+            btn.addEventListener("click", () => {
+                const wrap = btn.closest<HTMLElement>(".yt-embed");
+                const id = wrap?.dataset.videoId;
+                if (!wrap || !id) return;
+                const iframe = document.createElement("iframe");
+                iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+                iframe.title = "YouTube video player";
+                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+                iframe.allowFullscreen = true;
+                iframe.className = "absolute inset-0 w-full h-full border-0";
+                wrap.innerHTML = "";
+                wrap.appendChild(iframe);
+            });
+        });
+    }
+    wireYouTube();
+    document.addEventListener("astro:after-swap", wireYouTube);
+</script>

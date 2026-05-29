@@ -1,0 +1,141 @@
+---
+// Reusable single-item carousel. Each direct child passed into the slot should
+// carry the `ehy-slide` class (full-width, snap-aligned). One global script
+// initializes every `.ehy-carousel` on the page and re-inits after swup nav.
+interface Props {
+    class?: string;
+    autoplay?: number; // ms between auto-advances; 0 disables
+    ariaLabel?: string;
+}
+const { class: className, autoplay = 0, ariaLabel = "carousel" } = Astro.props;
+---
+
+<div
+    class:list={["ehy-carousel relative", className]}
+    data-autoplay={autoplay}
+    role="region"
+    aria-roledescription="carousel"
+    aria-label={ariaLabel}
+>
+    <div class="ehy-track flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
+        <slot />
+    </div>
+
+    <button
+        type="button"
+        class="ehy-prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full grid place-items-center bg-black/45 hover:bg-black/65 text-white text-2xl leading-none backdrop-blur transition active:scale-90"
+        aria-label="Previous"
+    >‹</button>
+    <button
+        type="button"
+        class="ehy-next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full grid place-items-center bg-black/45 hover:bg-black/65 text-white text-2xl leading-none backdrop-blur transition active:scale-90"
+        aria-label="Next"
+    >›</button>
+
+    <div class="ehy-dots flex justify-center gap-2 mt-3"></div>
+</div>
+
+<style>
+    .ehy-track {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .ehy-track::-webkit-scrollbar {
+        display: none;
+    }
+    .ehy-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 9999px;
+        background: color-mix(in oklch, var(--primary), transparent 70%);
+        transition: all 0.25s;
+        cursor: pointer;
+    }
+    .ehy-dot.active {
+        background: var(--primary);
+        width: 1.25rem;
+    }
+</style>
+
+<script>
+    function initCarousel(root: HTMLElement) {
+        if ((root as any).__ehyInit) return;
+        (root as any).__ehyInit = true;
+
+        const track = root.querySelector<HTMLElement>(".ehy-track");
+        const prev = root.querySelector<HTMLButtonElement>(".ehy-prev");
+        const next = root.querySelector<HTMLButtonElement>(".ehy-next");
+        const dotsWrap = root.querySelector<HTMLElement>(".ehy-dots");
+        if (!track) return;
+
+        const slides = Array.from(track.children) as HTMLElement[];
+        const count = slides.length;
+
+        if (count <= 1) {
+            prev?.classList.add("hidden");
+            next?.classList.add("hidden");
+            if (dotsWrap) dotsWrap.style.display = "none";
+            return;
+        }
+
+        // Build dots
+        const dots: HTMLButtonElement[] = [];
+        if (dotsWrap) {
+            slides.forEach((_, i) => {
+                const d = document.createElement("button");
+                d.className = "ehy-dot";
+                d.setAttribute("aria-label", `Go to item ${i + 1}`);
+                d.addEventListener("click", () => scrollToIndex(i));
+                dotsWrap.appendChild(d);
+                dots.push(d);
+            });
+        }
+
+        const indexFromScroll = () => Math.round(track.scrollLeft / track.clientWidth);
+
+        function scrollToIndex(i: number) {
+            const idx = (i + count) % count;
+            track.scrollTo({ left: idx * track.clientWidth, behavior: "smooth" });
+        }
+        function update() {
+            const i = indexFromScroll();
+            dots.forEach((d, di) => d.classList.toggle("active", di === i));
+        }
+
+        prev?.addEventListener("click", () => scrollToIndex(indexFromScroll() - 1));
+        next?.addEventListener("click", () => scrollToIndex(indexFromScroll() + 1));
+        track.addEventListener("scroll", () => {
+            window.requestAnimationFrame(update);
+        });
+        update();
+
+        // Autoplay
+        const interval = parseInt(root.dataset.autoplay || "0", 10);
+        if (interval > 0) {
+            let timer: number | undefined;
+            const start = () => {
+                stop();
+                timer = window.setInterval(() => {
+                    const atEnd = indexFromScroll() >= count - 1;
+                    scrollToIndex(atEnd ? 0 : indexFromScroll() + 1);
+                }, interval);
+            };
+            const stop = () => {
+                if (timer) window.clearInterval(timer);
+                timer = undefined;
+            };
+            root.addEventListener("mouseenter", stop);
+            root.addEventListener("mouseleave", start);
+            root.addEventListener("focusin", stop);
+            root.addEventListener("focusout", start);
+            start();
+        }
+    }
+
+    function initAllCarousels() {
+        document.querySelectorAll<HTMLElement>(".ehy-carousel").forEach(initCarousel);
+    }
+
+    initAllCarousels();
+    document.addEventListener("astro:after-swap", initAllCarousels);
+</script>
