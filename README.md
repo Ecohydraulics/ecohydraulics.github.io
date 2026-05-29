@@ -46,6 +46,32 @@ pnpm preview    # serve the built dist/ locally
 
 Almost everything is controlled from a single file: **`twilight.config.yaml`** (site title, banner text, navigation menus and their dropdown panels, sidebar widgets, music player, etc.). Page content lives under `src/content/` and `src/pages/`. Static assets (images, favicons) live under `public/`.
 
+## Adding content
+
+### Blog posts
+
+Put **future blog posts in `src/content/posts/`** — one Markdown (`.md`/`.mdx`) file per post. They appear automatically on the home page and the [Blog/archive](https://ecohydraulics.github.io/archive/). Each post starts with frontmatter:
+
+```markdown
+---
+title: My post title
+published: 2026-05-29
+description: One-line summary shown in listings.
+cover: "/assets/images/desktopWallpaper_2.jpg"   # optional
+tags: [Community, Announcement]
+category: News
+draft: false        # set true to hide from the published site
+---
+
+Post body in Markdown…
+```
+
+You can also scaffold one with `pnpm new-post`. Images you reference go in `public/assets/images/` (e.g. `/assets/images/my-pic.jpg`).
+
+### Menu pages
+
+The standalone menu pages (About, Community, Research, Leadership Team, …) live in **`src/content/pages/`**. The filename is the URL slug (`history.md` → `/history/`), and each file needs `title` (and optionally `description`) frontmatter. To add a page to the navigation, also add a link in `navbar.links` in `twilight.config.yaml`.
+
 ## Deployment
 
 ### Short version

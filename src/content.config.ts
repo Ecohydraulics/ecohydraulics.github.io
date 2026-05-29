@@ -68,7 +68,18 @@ const specCollection = defineCollection({
     }),
 });
 
+// Standalone menu pages (About, Community, Research, etc.) migrated from WordPress.
+// Each file's slug maps to its route via src/pages/[...slug].astro.
+const pagesCollection = defineCollection({
+    loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/pages" }),
+    schema: z.object({
+        title: z.string(),
+        description: z.string().optional().default(""),
+    }),
+});
+
 export const collections = {
     posts: postsCollection,
     spec: specCollection,
+    pages: pagesCollection,
 };

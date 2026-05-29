@@ -1,0 +1,44 @@
+---
+export const prerender = true;
+
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+
+import Markdown from "@components/common/markdown.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+
+
+export const getStaticPaths = (async () => {
+    const pages = await getCollection("pages");
+    return pages.map((page) => ({
+        params: { slug: page.id },
+        props: { page },
+    }));
+}) satisfies GetStaticPaths;
+
+
+const { page } = Astro.props;
+const { Content, headings } = await render(page);
+const pageTitle = page.data.title;
+const pageDescription = page.data.description;
+---
+
+<GridLayout title={pageTitle} description={pageDescription} headings={headings}>
+    <div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full">
+            <BackwardButton currentPath={Astro.url.pathname} />
+            <header class="mb-6">
+                <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+                    {pageTitle}
+                </h1>
+                {pageDescription && (
+                    <p class="text-neutral-600 dark:text-neutral-400">{pageDescription}</p>
+                )}
+            </header>
+            <Markdown class="mt-2">
+                <Content />
+            </Markdown>
+        </div>
+    </div>
+</GridLayout>
