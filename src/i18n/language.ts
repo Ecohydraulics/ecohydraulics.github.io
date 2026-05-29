@@ -32,7 +32,8 @@ export const LANGUAGE_CONFIG = {
         icon: "🇨🇳",
     },
     de: {
-        translateCode: "german",
+        // translate.js client.edge keys German as "deutsch" (not "german"); see service map.
+        translateCode: "deutsch",
         displayName: "Deutsch",
         locale: "de-DE",
         icon: "🇩🇪",
