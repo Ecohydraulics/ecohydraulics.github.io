@@ -44,3 +44,24 @@ make of it what we want it to be to serve our community. The key is to include
 the journal in the suite of journals that you submit your research manuscripts
 to, so you get the benefit of a dedicated readership that understands our
 domain.
+
+## Learn more using the links below
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:1rem">
+
+<a href="/editorial-board/" style="text-decoration:none;text-align:center">
+<img src="/assets/images/journal/EdBoard_icon.jpg" alt="Editorial Board" style="width:100%;max-width:240px;aspect-ratio:1;object-fit:cover;border-radius:0.75rem;margin:0 auto" />
+<div style="margin-top:0.5rem;font-weight:600">Editorial Board</div>
+</a>
+
+<a href="/tjoe-features-articles/" style="text-decoration:none;text-align:center">
+<img src="/assets/images/journal/FeaturedArticles_icon.jpg" alt="Featured Articles" style="width:100%;max-width:240px;aspect-ratio:1;object-fit:cover;border-radius:0.75rem;margin:0 auto" />
+<div style="margin-top:0.5rem;font-weight:600">Featured Articles</div>
+</a>
+
+<a href="/tjoe-statistics/" style="text-decoration:none;text-align:center">
+<img src="/assets/images/journal/Journalmetrics_icon.jpg" alt="Journal Metrics" style="width:100%;max-width:240px;aspect-ratio:1;object-fit:cover;border-radius:0.75rem;margin:0 auto" />
+<div style="margin-top:0.5rem;font-weight:600">Journal Metrics</div>
+</a>
+
+</div>
