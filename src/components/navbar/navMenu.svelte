@@ -1,7 +1,8 @@
 <script lang="ts">
 import { onMount } from "svelte";
 
-import type { NavbarLink } from "@/types/config";
+import type { NavbarLink, LinkPreset } from "@/types/config";
+import { LinkPresets } from "@constants/link-presets";
 import { url } from "@utils/url";
 import { onClickOutside } from "@utils/widget";
 import Icon from "@components/common/icon.svelte";
@@ -13,6 +14,11 @@ interface Props {
 
 let { links }: Props = $props();
 let isOpen = $state(false);
+
+// Resolve a child link that may still be a LinkPreset number.
+function resolveChild(child: NavbarLink | LinkPreset): NavbarLink {
+    return typeof child === "number" ? LinkPresets[child] : child;
+}
 
 function togglePanel() {
     isOpen = !isOpen;
@@ -63,6 +69,26 @@ onMount(() => {
                         <Icon icon="fa6-solid:arrow-up-right-from-square" class="transition text-[0.75rem] text-black/25 dark:text-white/25 -translate-x-1" />
                     {/if}
                 </a>
+                {#if link.children && link.children.length > 0}
+                    <div class="ml-4 pl-2 border-l border-black/10 dark:border-white/15">
+                        {#each link.children.map(resolveChild) as child}
+                            <a href={child.external ? child.url : url(child.url)}
+                                class="group flex justify-between items-center py-1.5 pl-3 pr-1 rounded-lg gap-6 hover:bg-(--btn-plain-bg-hover) active:bg-(--btn-plain-bg-active) transition"
+                                target={child.external ? "_blank" : null}
+                            >
+                                <div class="flex items-center transition text-black/60 dark:text-white/60 text-sm font-medium group-hover:text-(--primary) group-active:text-(--primary)">
+                                    {#if child.icon}
+                                        <Icon icon={child.icon} class="text-[1rem] mr-2" />
+                                    {/if}
+                                    {child.name}
+                                </div>
+                                {#if child.external}
+                                    <Icon icon="fa6-solid:arrow-up-right-from-square" class="transition text-[0.7rem] text-black/25 dark:text-white/25 -translate-x-1" />
+                                {/if}
+                            </a>
+                        {/each}
+                    </div>
+                {/if}
             </div>
         {/each}
     </div>

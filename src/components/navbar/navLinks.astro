@@ -1,7 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import { type NavbarLink } from "@/types/config";
+import { type NavbarLink, type LinkPreset } from "@/types/config";
+import { LinkPresets } from "@constants/link-presets";
 import { url } from "@utils/url";
 
 
@@ -11,20 +12,56 @@ interface Props {
 }
 
 const { link, class: className } = Astro.props;
+
+// Resolve child links (a child may still be a LinkPreset number after config normalization).
+const children = (link.children ?? []).map(
+    (child: NavbarLink | LinkPreset): NavbarLink =>
+        typeof child === "number" ? LinkPresets[child] : child,
+);
+const hasChildren = children.length > 0;
 ---
 
-<div class:list={["nav-link-container", className]}>
+<div class:list={["nav-link-container group", className]}>
     <a
         aria-label={link.name}
         href={link.external ? link.url : url(link.url)}
         target={link.external ? "_blank" : null}
+        aria-haspopup={hasChildren ? "true" : null}
         class="btn-plain scale-animation rounded-lg h-11 font-bold px-3 active:scale-95 nav-link-item"
         data-link-name={link.name}
     >
         <div class="flex items-center">
             {link.icon && <Icon name={link.icon} class="text-[1.1rem] nav-link-icon" />}
             <span class="nav-link-text ml-2 hidden lg:inline">{link.name}</span>
+            {hasChildren && (
+                <Icon
+                    name="material-symbols:keyboard-arrow-down-rounded"
+                    class="nav-link-caret text-[1.1rem] ml-0.5 transition-transform duration-200 group-hover:rotate-180"
+                />
+            )}
             {link.external && <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.875rem] transition -translate-y-px ml-1 text-black/20 dark:text-white/20" />}
         </div>
     </a>
+
+    {hasChildren && (
+        <div
+            class="nav-dropdown absolute top-full left-0 pt-2 z-50 opacity-0 invisible translate-y-1 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0"
+        >
+            <ul class="dropdown-content card-base p-2 min-w-56 flex flex-col gap-0.5 list-none">
+                {children.map((child) => (
+                    <li>
+                        <a
+                            href={child.external ? child.url : url(child.url)}
+                            target={child.external ? "_blank" : null}
+                            class="btn-plain rounded-lg px-3 py-2 w-full flex items-center gap-2.5 font-medium whitespace-nowrap"
+                        >
+                            {child.icon && <Icon name={child.icon} class="text-[1.05rem] shrink-0 text-(--primary)" />}
+                            <span class="flex-1">{child.name}</span>
+                            {child.external && <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[0.7rem] text-black/25 dark:text-white/25" />}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )}
 </div>
