@@ -560,21 +560,35 @@ if (typeof window !== 'undefined') {
         }, 600);
     };
 
+    // Run the loading-overlay teardown at most once, regardless of which trigger fires.
+    let pageLoadedDone = false;
+    const runOnPageLoaded = () => {
+        if (pageLoadedDone) return;
+        pageLoadedDone = true;
+        onPageLoaded();
+    };
+
     const configCarrier = document.getElementById('config-carrier');
     const waitForAllResources = configCarrier?.dataset.waitForAllResources === 'true';
 
     if (waitForAllResources) {
         if (document.readyState === 'complete') {
-            onPageLoaded();
+            runOnPageLoaded();
         } else {
-            window.addEventListener('load', onPageLoaded);
+            window.addEventListener('load', runOnPageLoaded);
         }
     } else {
         if (document.readyState !== 'loading') {
-            onPageLoaded();
+            runOnPageLoaded();
         } else {
-            document.addEventListener('DOMContentLoaded', onPageLoaded);
+            document.addEventListener('DOMContentLoaded', runOnPageLoaded);
         }
     }
+
+    // Safety net: never keep the page scroll-locked (html.is-loading sets
+    // overflow:hidden) waiting on a slow or hung third-party resource — e.g. a
+    // YouTube thumbnail or the translate.js API when waitForAllResources is on.
+    // Force the teardown after a few seconds even if `load` never fires.
+    setTimeout(runOnPageLoaded, 5000);
 }
 </script>
