@@ -92,6 +92,36 @@ export const LANGUAGE_CONFIG = {
         locale: "el-GR",
         icon: "🇬🇷",
     },
+    ja: {
+        translateCode: "japanese",
+        displayName: "日本語",
+        locale: "ja-JP",
+        icon: "🇯🇵",
+    },
+    pt: {
+        translateCode: "portuguese",
+        displayName: "Português",
+        locale: "pt-PT",
+        icon: "🇵🇹",
+    },
+    nl: {
+        translateCode: "dutch",
+        displayName: "Nederlands",
+        locale: "nl-NL",
+        icon: "🇳🇱",
+    },
+    no: {
+        translateCode: "norwegian",
+        displayName: "Norsk",
+        locale: "nb-NO",
+        icon: "🇳🇴",
+    },
+    sv: {
+        translateCode: "swedish",
+        displayName: "Svenska",
+        locale: "sv-SE",
+        icon: "🇸🇪",
+    },
 } as const satisfies Record<string, LanguageConfig>;
 
 /** 支持的语言代码列表 */

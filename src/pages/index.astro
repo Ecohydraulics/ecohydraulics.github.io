@@ -15,7 +15,8 @@ import Carousel from "@components/carousel.astro";
 const allPosts = await getSortedPosts();
 const welcome = allPosts.find((p) => p.id.endsWith("welcome")) ?? null;
 const WelcomeContent = welcome ? (await render(welcome)).Content : null;
-const carouselPosts = allPosts.filter((p) => p !== welcome);
+// Carousel rotates through the 5 most recent posts (getSortedPosts is newest-first).
+const carouselPosts = allPosts.filter((p) => p !== welcome).slice(0, 5);
 
 // Latest videos from the @ecohydraulics9581 channel (fetched at build time).
 const videos = await getChannelVideos(12);
