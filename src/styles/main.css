@@ -600,17 +600,33 @@
 }
 
 @layer utilities {
-    /* 确保平滑滚动并隐藏原生滚动条 */
+    /* 平滑滚动；保留可见的滚动条（使用主题色样式） */
     html,
     body {
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--scrollbar-bg) transparent; /* Firefox: thumb track */
     }
 
     html::-webkit-scrollbar,
     body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    width: 12px;
+    }
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track {
+    background: transparent;
+    }
+    html::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-bg);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    }
+    html::-webkit-scrollbar-thumb:hover,
+    body::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-bg-hover);
+    background-clip: content-box;
     }
 
     /* 页面顶部渐变高光效果 */
