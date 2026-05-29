@@ -22,6 +22,7 @@ import {
 } from "@constants/constants";
 import { pathsEqual, url } from "@utils/url";
 import FontLoader from "@components/fontLoader.astro";
+import CookieConsent from "@components/cookieConsent.astro";
 import LoadingOverlay from "@components/loadingOverlay.astro";
 import ConfigCarrier from "@components/configCarrier.astro";
 import MusicPlayer from "@components/musicPlayer.svelte";
@@ -130,8 +131,9 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
     <head>
         <meta charset="UTF-8" />
         <!-- Resource Preconnect -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- Note: preconnect to fonts.googleapis.com / fonts.gstatic.com is
+             intentionally NOT emitted here. Those connections are opened by the
+             cookie consent manager only after the visitor accepts. -->
         <link rel="preconnect" href="https://code.iconify.design">
         <!-- Font Loader -->
         <FontLoader />
@@ -241,6 +243,8 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
         {pioConfig.enable && <Pio client:visible />}
         <!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
         <div id="page-height-extend" class="hidden h-[300vh]"></div>
+        <!-- Cookie / privacy consent (gates translation widget + web fonts) -->
+        <CookieConsent />
     </body>
 </html>
 
@@ -504,8 +508,16 @@ initWallpaperMode();
 // 初始化 Markdown 相关操作以防止因 Swup 无刷新跳转的机制限制而导致操作失效
 initMarkdownActions();
 
-// Initialize translate.js
-loadAndInitTranslate();
+// Initialize translate.js — but only once the visitor has accepted cookies,
+// because translate.js loads a third-party script, calls external translation
+// APIs, and sets a language cookie. Expose the initializer so the cookie
+// consent manager can call it immediately when consent is granted.
+(window as any).loadAndInitTranslate = loadAndInitTranslate;
+try {
+    if (localStorage.getItem("cookie-consent") === "accepted") {
+        loadAndInitTranslate();
+    }
+} catch (e) { /* localStorage unavailable */ }
 
 // Initialize particle effects
 setupParticleEffects();

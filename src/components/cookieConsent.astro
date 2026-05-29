@@ -1,0 +1,131 @@
+---
+import { url } from "@utils/url";
+---
+
+<!--
+  Cookie / privacy consent banner.
+
+  The site itself sets no tracking cookies. This banner gates the only two
+  non-essential third-party features:
+    1. the translation widget (loads a third-party script, calls external
+       translation APIs, and sets a language cookie), and
+    2. Google Fonts (transmits the visitor's IP to Google).
+
+  Functional storage (theme, wallpaper, "announcement dismissed", and the
+  consent choice itself) is strictly necessary and is not gated.
+-->
+<div
+    id="cookie-consent-banner"
+    role="dialog"
+    aria-live="polite"
+    aria-label="Cookie consent"
+    class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-md z-50 card-base p-5 shadow-2xl"
+>
+    <h2 class="font-bold text-lg text-neutral-900 dark:text-neutral-100 mb-2">Cookies &amp; privacy</h2>
+    <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+        This site uses only functional storage that keeps it working (your theme
+        and display preferences). Optional features &mdash; the on-page
+        <strong>translation widget</strong> and <strong>web fonts</strong> &mdash;
+        contact third-party services and set a cookie, so they load only if you
+        accept. See our
+        <a class="link text-(--primary) font-medium" href={url('/privacy/')}>Privacy &amp; Cookies</a>
+        page for details.
+    </p>
+    <div class="flex flex-wrap gap-2 justify-end">
+        <button id="cookie-consent-reject" type="button"
+            class="btn-regular rounded-lg px-4 py-2 text-sm font-medium active:scale-95 transition">
+            Reject optional
+        </button>
+        <button id="cookie-consent-accept" type="button"
+            class="rounded-lg px-4 py-2 text-sm font-bold text-white active:scale-95 transition"
+            style="background-color: var(--primary)">
+            Accept all
+        </button>
+    </div>
+</div>
+
+<script is:inline>
+(() => {
+    const STORAGE_KEY = "cookie-consent";
+
+    function getChoice() {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+    }
+    function setChoice(v) {
+        try { localStorage.setItem(STORAGE_KEY, v); } catch (e) {}
+    }
+
+    // Load deferred external font stylesheets (e.g. Google Fonts). Guarded so
+    // it only ever runs once per page session.
+    function loadDeferredFonts() {
+        if (window.__deferredFontsLoaded) return;
+        const island = document.getElementById("deferred-fonts");
+        if (!island) return;
+        let urls = [];
+        try { urls = JSON.parse(island.textContent || "[]"); } catch (e) { urls = []; }
+        if (!urls.length) { window.__deferredFontsLoaded = true; return; }
+        const head = document.head;
+        const addPreconnect = (href, cross) => {
+            const l = document.createElement("link");
+            l.rel = "preconnect"; l.href = href;
+            if (cross) l.crossOrigin = "anonymous";
+            head.appendChild(l);
+        };
+        if (urls.some(u => u.includes("fonts.googleapis.com"))) {
+            addPreconnect("https://fonts.googleapis.com", false);
+            addPreconnect("https://fonts.gstatic.com", true);
+        }
+        urls.forEach(u => {
+            const l = document.createElement("link");
+            l.rel = "stylesheet"; l.href = u;
+            head.appendChild(l);
+        });
+        window.__deferredFontsLoaded = true;
+    }
+
+    function applyConsentedServices() {
+        window.__cookieConsentGranted = true;
+        loadDeferredFonts();
+        // translate.js — base layout exposes this; call if available (button
+        // clicks happen after the module has loaded). On initial accepted load
+        // the base layout initializes it itself.
+        if (typeof window.loadAndInitTranslate === "function") {
+            try { window.loadAndInitTranslate(); } catch (e) {}
+        }
+    }
+
+    function hideBanner() {
+        const b = document.getElementById("cookie-consent-banner");
+        if (b) b.classList.add("hidden");
+    }
+    function showBanner() {
+        const b = document.getElementById("cookie-consent-banner");
+        if (!b) return;
+        b.classList.remove("hidden");
+        const accept = document.getElementById("cookie-consent-accept");
+        const reject = document.getElementById("cookie-consent-reject");
+        if (accept) accept.onclick = () => { setChoice("accepted"); applyConsentedServices(); hideBanner(); };
+        if (reject) reject.onclick = () => { setChoice("rejected"); hideBanner(); };
+    }
+
+    // Allow re-opening the banner from the footer ("Cookie settings").
+    window.openCookieSettings = showBanner;
+
+    function init() {
+        const choice = getChoice();
+        if (choice === "accepted") {
+            applyConsentedServices();
+            hideBanner();
+        } else if (choice === "rejected") {
+            hideBanner();
+        } else {
+            showBanner();
+        }
+    }
+
+    init();
+    // Re-evaluate after client-side (swup) navigations, since the banner markup
+    // is re-rendered and button handlers need re-binding.
+    document.addEventListener("astro:after-swap", init);
+})();
+</script>

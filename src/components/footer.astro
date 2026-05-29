@@ -39,6 +39,8 @@ if (footerConfig.enable) {
             <div class="mb-2" set:html={customFooterHtml}></div>
         )}
         &copy; <span id="copyright-year">{currentYear}</span> {profileConfig.name}. All Rights Reserved. /
+        <a class="transition link text-(--primary) font-medium" href={url('/privacy/')}>Privacy &amp; Cookies</a> /
+        <a class="transition link text-(--primary) font-medium cursor-pointer" onclick="window.openCookieSettings && window.openCookieSettings()">Cookie settings</a> /
         <a class="transition link text-(--primary) font-medium" href={url('rss/')} onclick={`event.preventDefault(); navigateToPage('${url('rss/')}')`}>RSS</a> /
         <a class="transition link text-(--primary) font-medium" href={url('atom/')} onclick={`event.preventDefault(); navigateToPage('${url('atom/')}')`}>Atom</a> /
         <a class="transition link text-(--primary) font-medium" target="_blank" href={url('sitemap-index.xml')}>Sitemap</a><br>
