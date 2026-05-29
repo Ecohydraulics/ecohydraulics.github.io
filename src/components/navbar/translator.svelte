@@ -37,9 +37,9 @@ function closePanel() {
 
 async function changeLanguage(languageCode: string) {
     try {
-        // 如果翻译脚本未加载，先加载
-        if (!(window as any).translateScriptLoaded && typeof (window as any).loadTranslateScript === "function") {
-            await (window as any).loadTranslateScript();
+        // 如果翻译脚本未加载，先加载并初始化（用户点击切换语言即视为同意加载第三方脚本）
+        if (!(window as any).translate && typeof (window as any).loadAndInitTranslate === "function") {
+            await (window as any).loadAndInitTranslate();
         }
         // 确认翻译脚本已加载
         if (!(window as any).translate) {

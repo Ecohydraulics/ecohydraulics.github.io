@@ -71,7 +71,7 @@ export type SiteConfig = {
     // 站点关键词，用于生成 <meta name="keywords">
     keywords?: string[];
     // 语言配置
-    lang: "zh" | "en" | "ko" | "ja" | "es" | "th" | "vi" | "tr" | "id" | "fr" | "de" | "ru" | "ar";
+    lang: "en" | "zh" | "de" | "fr" | "es" | "ar" | "ru" | "sw" | "tr" | "it" | "hu" | "el";
     // 翻译配置
     translate?: {
         // 启用翻译功能

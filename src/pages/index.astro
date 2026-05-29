@@ -65,10 +65,11 @@ const videos = await getChannelVideos(12);
                         <div class="yt-embed relative rounded-xl overflow-hidden bg-black/80" style="aspect-ratio:16/9" data-video-id={v.id}>
                             <button type="button" class="yt-play group absolute inset-0 w-full h-full" aria-label={`Play video: ${v.title}`}>
                                 <img
-                                    src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+                                    src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`}
+                                    data-fallback={`https://i.ytimg.com/vi/${v.id}/sddefault.jpg`}
                                     alt={v.title}
                                     loading="lazy"
-                                    class="w-full h-full object-cover transition group-hover:scale-105"
+                                    class="yt-thumb w-full h-full object-cover transition group-hover:scale-105"
                                 />
                                 <span class="absolute inset-0 grid place-items-center">
                                     <span class="w-16 h-16 rounded-full grid place-items-center bg-black/55 group-hover:bg-(--primary) transition text-white text-3xl pl-1">▶</span>
@@ -88,7 +89,23 @@ const videos = await getChannelVideos(12);
 <script>
     // Click-to-play: only contact YouTube (which sets cookies) once the visitor
     // actually clicks a video, keeping the initial page load lighter and quieter.
+    function wireThumbs() {
+        // maxresdefault.jpg is sharp but missing on some uploads; fall back once on error.
+        document.querySelectorAll<HTMLImageElement>(".yt-thumb").forEach((img) => {
+            if ((img as any).__wired) return;
+            (img as any).__wired = true;
+            const useFallback = () => {
+                const fallback = img.dataset.fallback;
+                if (fallback && img.src !== fallback) img.src = fallback;
+            };
+            img.addEventListener("error", useFallback);
+            // Catch images that already failed before this listener attached.
+            if (img.complete && img.naturalWidth === 0) useFallback();
+        });
+    }
+
     function wireYouTube() {
+        wireThumbs();
         document.querySelectorAll<HTMLButtonElement>(".yt-play").forEach((btn) => {
             if ((btn as any).__wired) return;
             (btn as any).__wired = true;
