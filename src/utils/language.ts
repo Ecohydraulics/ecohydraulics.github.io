@@ -98,18 +98,21 @@ export function detectBrowserLanguage(fallbackLang: SupportedLanguage = "en"): S
     return fallbackLang;
 }
 
-// 获取当前站点语言（优先使用缓存，其次是配置语言，最后是浏览器检测）
+// 获取当前站点语言（优先使用缓存，其次是浏览器/系统界面语言，最后是配置默认值）
+// First visit (no stored choice) follows the visitor's browser/OS UI language
+// from navigator.languages — the browser's language-preference list, which is
+// the UI/content language, NOT the locale/region formatting settings.
 export function getSiteLanguage(configLang?: string): string {
-    // 优先从缓存读取
+    // 优先从缓存读取：用户手动选择过的语言始终优先
     const storedLang = getStoredLanguage();
     if (storedLang) return storedLang;
-    // 其次使用传入的配置语言或从 carrier 获取的默认语言
+    // 站点默认语言作为浏览器检测的兜底（浏览器语言不受支持时使用）
     const defaultLang = configLang || getDefaultLanguage();
-    if (SUPPORTED_LANGUAGES.includes(defaultLang as SupportedLanguage)) {
-        return langToTranslateMap[defaultLang];
-    }
-    // 最后自动检测浏览器语言并转换为翻译服务代码
-    const browserLang = detectBrowserLanguage();
+    const fallbackLang = SUPPORTED_LANGUAGES.includes(defaultLang as SupportedLanguage)
+        ? (defaultLang as SupportedLanguage)
+        : "en";
+    // 自动检测浏览器/系统界面语言；不受支持时回退到站点默认语言
+    const browserLang = detectBrowserLanguage(fallbackLang);
     return langToTranslateMap[browserLang];
 }
 

@@ -122,6 +122,18 @@ export const LANGUAGE_CONFIG = {
         locale: "sv-SE",
         icon: "🇸🇪",
     },
+    pl: {
+        translateCode: "polish",
+        displayName: "Polski",
+        locale: "pl-PL",
+        icon: "🇵🇱",
+    },
+    hi: {
+        translateCode: "hindi",
+        displayName: "हिन्दी",
+        locale: "hi-IN",
+        icon: "🇮🇳",
+    },
 } as const satisfies Record<string, LanguageConfig>;
 
 /** 支持的语言代码列表 */
