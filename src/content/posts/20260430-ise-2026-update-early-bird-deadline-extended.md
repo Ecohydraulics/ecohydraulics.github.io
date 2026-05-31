@@ -1,7 +1,7 @@
 ---
 title: "International Symposium on Ecohydraulics (ISE) 2026 / Lausanne, Switzerland - Update: Early-bird Deadline Extended"
 published: 2026-04-30
-author: Sebastian Schwindt
+author: Sebastian
 description: ISE 2026 Update
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false

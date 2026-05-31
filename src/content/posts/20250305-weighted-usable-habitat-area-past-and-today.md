@@ -1,7 +1,7 @@
 ---
 title: Weighted Usable Habitat Area in the Past and Today
 published: 2025-03-05
-author: Sebastian Schwindt
+author: Sebastian
 description: A walk through how Weighted Usable Area (WUA) is calculated, and why moving to 2d needs care.
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false

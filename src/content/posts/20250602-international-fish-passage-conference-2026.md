@@ -1,7 +1,7 @@
 ---
 title: "X-Posting: International Fish Passage Conference 2026, UC Davis, CA, USA"
 published: 2025-06-02
-author: Sebastian Schwindt
+author: Sebastian
 description: International Fish Passage Conference 2026 at UC Davis
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false

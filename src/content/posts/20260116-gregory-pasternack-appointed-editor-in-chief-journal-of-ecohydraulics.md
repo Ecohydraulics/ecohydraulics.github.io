@@ -1,7 +1,7 @@
 ---
 title: Gregory Pasternack Appointed Editor-in-Chief of the Journal of Ecohydraulics
 published: 2026-01-16
-author: Sebastian Schwindt
+author: Sebastian
 description: JoE News
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false

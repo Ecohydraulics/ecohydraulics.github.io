@@ -1,7 +1,7 @@
 ---
 title: "New Ecohydraulics Interview: Knut Alfredsen - Cold Rivers"
 published: 2026-04-30
-author: Sebastian Schwindt
+author: Sebastian
 description: Knut Alfredsen on YouTube
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false
