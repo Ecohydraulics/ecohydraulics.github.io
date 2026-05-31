@@ -56,6 +56,13 @@ export const LANGUAGE_CONFIG = {
         locale: "ar-SA",
         icon: "🇸🇦",
     },
+    he: {
+        // translate.js (client.edge) keys Hebrew as "hebrew" -> serviceId "he".
+        translateCode: "hebrew",
+        displayName: "עברית",
+        locale: "he-IL",
+        icon: "🇮🇱",
+    },
     ru: {
         translateCode: "russian",
         displayName: "Русский",
@@ -142,6 +149,23 @@ export const SUPPORTED_LANGUAGES = Object.keys(LANGUAGE_CONFIG) as Array<
 >;
 
 export type SupportedLanguage = keyof typeof LANGUAGE_CONFIG;
+
+/**
+ * Aliases for browser/OS language tags that should map onto a supported
+ * language but whose *primary* subtag is not itself supported.
+ *
+ * Regional variants such as de-CH / de-AT (Swiss/Austrian German) and
+ * fr-CH / fr-BE (Swiss/Belgian French) do NOT need entries here: detection
+ * strips the region and matches on the primary subtag (de / fr) directly.
+ * These entries cover the exceptions whose primary subtag differs from the
+ * supported code — e.g. Swiss German's own ISO code "gsw".
+ */
+export const LANGUAGE_ALIASES: Record<string, SupportedLanguage> = {
+    gsw: "de", // Swiss German (Alemannic)
+    swg: "de", // Swabian German
+    bar: "de", // Bavarian / Austro-Bavarian
+    iw: "he",  // legacy ISO 639 code for Hebrew (some older browsers/OSes)
+};
 
 /**
  * 配置文件语言代码到翻译服务语言代码的映射

@@ -1,6 +1,7 @@
 import {
     type SupportedLanguage,
     SUPPORTED_LANGUAGES,
+    LANGUAGE_ALIASES,
     langToTranslateMap,
     translateToLangMap,
     LANGUAGE_CONFIG,
@@ -88,10 +89,16 @@ export function detectBrowserLanguage(fallbackLang: SupportedLanguage = "en"): S
     // 遍历浏览器语言列表，找到第一个支持的语言
     for (const browserLang of browserLangs) {
         // 提取主语言代码（例如：'zh-CN' -> 'zh', 'en-US' -> 'en'）
+        // 区域变体在此自动归并：de-CH / de-AT -> de，fr-CH / fr-BE -> fr
         const langCode = browserLang.toLowerCase().split("-")[0];
         // 检查是否在支持的语言列表中
         if (SUPPORTED_LANGUAGES.includes(langCode as SupportedLanguage)) {
             return langCode as SupportedLanguage;
+        }
+        // 主语种本身不受支持，但有别名映射时归并到对应语言
+        // （例如瑞士德语 'gsw' -> de，旧版希伯来语代码 'iw' -> he）
+        if (langCode in LANGUAGE_ALIASES) {
+            return LANGUAGE_ALIASES[langCode];
         }
     }
     // 如果没有找到支持的语言，返回备用语言
