@@ -14,8 +14,7 @@ The 17th International Symposium on Ecohydraulics is scheduled for 2028, but the
 
 ### ISE 2026
 
-The 16th International Symposium on Ecohydraulics will be held at the École Polytechnique Fédérale de Lausanne (EPFL) in Lausanne, Switzerland, on **16-20 August 2026** at the Swisstech Convention Center on the EPFL campus. The last time an ISE was held physically in Europe was in 2014 in Trondheim, so it will have been more than a decade. The LOC is led by [Prof. Dr. Eng. Paolo Perona](https://people.epfl.ch/paolo.perona?lang=en) and [Dr. sc. Giovanni De Cesare](https://people.epfl.ch/giovanni.decesare?lang=en).
-EPFL offers abundant, high-quality conference facilities, excellent infrastructure, and easy access around the city, country, and Europe. Visit theofficial conference website at [ise2026.epfl.ch](https://ise2026.epfl.ch/), and watch the LOC's introduction video on the [@ecohydraulics9581 channel on YouTube](https://www.youtube.com/@ecohydraulics9581).
+The 16th International Symposium on Ecohydraulics will be held at the École Polytechnique Fédérale de Lausanne (EPFL) in Lausanne, Switzerland, on **16-20 August 2026** at the Swisstech Convention Center on the EPFL campus. The last time an ISE was held physically in Europe was in 2014 in Trondheim, so it will have been more than a decade. The LOC is led by [Prof. Dr. Eng. Paolo Perona](https://people.epfl.ch/paolo.perona?lang=en) and [Dr. sc. Giovanni De Cesare](https://people.epfl.ch/giovanni.decesare?lang=en). Visit the official conference website at [ise2026.epfl.ch](https://ise2026.epfl.ch/), and watch the LOC's introduction video on the [@ecohydraulics9581 channel on YouTube](https://www.youtube.com/@ecohydraulics9581).
 
 ### Past Symposia
 
@@ -32,7 +31,7 @@ are noted where known.
 - **2018 - Tokyo, Japan.** 12th ISE, convened jointly by IAHR and the
   International Society for River Science (ISRS).
 - **2016 - Melbourne, Australia.** 11th ISE.
-- **2014 - Trondheim, Norway.** 10th ISE, hosted by NTNU and SINTEF — the last
+- **2014 - Trondheim, Norway.** 10th ISE, hosted by NTNU and SINTEF - the last
   ISE held physically in Europe before 2026.
 - **2012 - Vienna, Austria.** 9th ISE, hosted by BOKU University.
 - **2010 - Seoul, South Korea.** 8th ISE.

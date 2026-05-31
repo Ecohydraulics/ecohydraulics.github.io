@@ -78,9 +78,9 @@ The ecohydraulic trilogy — at the heart of the inter- and trans-disciplinary
 field of Ecohydraulics:
 
 1. **Movements, abilities and passage of aquatic organisms**
-   - Migratory behaviour, life-cycle requirements in fresh, brackish & saline waters
+   - Migratory behavior, life-cycle requirements in fresh, brackish & saline waters
    - Upstream and downstream passage systems
-   - Biomechanics (behaviour, swimming abilities, bioenergetics, modeling)
+   - Biomechanics (behavior, swimming abilities, bioenergetics, modeling)
 2. **E-flow regimes (environmental, ecological or instream flows)**
    - Hydraulic and habitat quantification & modeling involving aquatic flora and fauna
    - Ecohydrology, thermal & water quality aspects
