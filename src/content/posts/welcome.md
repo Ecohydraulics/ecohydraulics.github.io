@@ -1,6 +1,7 @@
 ---
 title: Welcome to the Ecohydraulics community website
 published: 2026-05-29
+author: Sebastian Schwindt
 description: A website for the global ecohydraulics community.
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false

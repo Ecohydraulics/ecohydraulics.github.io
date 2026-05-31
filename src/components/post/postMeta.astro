@@ -12,6 +12,7 @@ import I18nKey from "@i18n/i18nKey";
 export interface Props {
     published: Date;
     updated?: Date;
+    author?: string;
     category?: string | string[] | null;
     tags?: string[];
     hideUpdateDate?: boolean;
@@ -25,6 +26,7 @@ export interface Props {
 const {
     published,
     updated,
+    author,
     category,
     tags,
     hideUpdateDate,
@@ -48,6 +50,15 @@ const { enabled: analyticsEnabled, platform, baseUrl, apiKey, websiteId } = getA
         </div>
         <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
     </div>
+    <!-- author -->
+    {author && (
+        <div class="flex items-center">
+            <div class="meta-icon">
+                <Icon name="material-symbols:person-outline-rounded" class="text-xl"></Icon>
+            </div>
+            <span class="text-50 text-sm font-medium">{author}</span>
+        </div>
+    )}
     <!-- update date -->
     {!hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
         <div class="flex items-center">

@@ -1,6 +1,7 @@
 ---
 title: IAHR ISE-SED 2026 — Extended abstract submission now open!
 published: 2025-09-10
+author: Sebastian Schwindt
 description: ISE 2026
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false

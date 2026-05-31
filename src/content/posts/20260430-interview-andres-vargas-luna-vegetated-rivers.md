@@ -1,6 +1,7 @@
 ---
 title: "New Ecohydraulics Interview: Andrés Vargas Luna - Vegetated Rivers"
 published: 2026-04-30
+author: Sebastian Schwindt
 description: YouTube Interview
 cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false
