@@ -132,7 +132,7 @@ site:
             # 是否启用加载标题
             enable: true
             # 加载标题文本
-            content: "LOADING"
+            content: "Splashing"
             # 动画周期 (s)
             interval: 1.5
         # 加载动画配置

@@ -19,8 +19,24 @@ const titleInterval = config?.title?.interval ?? 1.5;
     class="fixed inset-0 z-100 flex items-center justify-center bg-(--page-bg) transition-opacity duration-600"
 >
     <div class="flex flex-col items-center">
-        <!-- loading icon -->
-        {showSpinner && <div class="loading-spinner mb-4"></div>}
+        <!-- loading icon: a fish swimming in a circle -->
+        {showSpinner && (
+        <div class="fish-orbit mb-4">
+            <div class="fish-track"></div>
+            <div class="fish">
+                <svg viewBox="0 0 32 24" aria-hidden="true">
+                    <!-- tail -->
+                    <path d="M7 12 L0 4 L2.5 12 L0 20 Z" fill="currentColor"></path>
+                    <!-- body (nose points right) -->
+                    <ellipse cx="18" cy="12" rx="11" ry="6.4" fill="currentColor"></ellipse>
+                    <!-- dorsal fin -->
+                    <path d="M13 6 L17 1.5 L19 6 Z" fill="currentColor"></path>
+                    <!-- eye -->
+                    <circle cx="24.5" cy="10" r="1.5" fill="var(--page-bg)"></circle>
+                </svg>
+            </div>
+        </div>
+        )}
         <!-- loading title -->
         {showTitle && (
         <div
@@ -34,34 +50,63 @@ const titleInterval = config?.title?.interval ?? 1.5;
 )}
 
 <style define:vars={{ spinnerInterval: `${spinnerInterval}s`, titleInterval: `${titleInterval}s` }}>
-    @keyframes spin {
-        0% {
-            rotate: 0deg;
+    /* The fish orbits the centre of the container, nose pointing along its
+       direction of travel. rotate(θ) places it at angle θ on the circle, the
+       trailing rotate(90deg) turns the (right-facing) fish to face the tangent. */
+    @keyframes fish-swim {
+        from {
+            transform: rotate(0deg) translateX(22px) rotate(90deg);
         }
-        100% {
-            rotate: 360deg;
+        to {
+            transform: rotate(360deg) translateX(22px) rotate(90deg);
         }
     }
-    @keyframes spinner-glow {
+    @keyframes track-glow {
         0%,
         100% {
-            box-shadow: 0 0 12px var(--primary);
-            border-top-color: var(--primary);
+            box-shadow: 0 0 10px color-mix(in oklch, var(--primary) 35%, transparent);
+            opacity: 0.5;
         }
         50% {
-            box-shadow: 0 0 24px var(--primary);
-            border-top-color: var(--primary);
+            box-shadow: 0 0 20px color-mix(in oklch, var(--primary) 55%, transparent);
+            opacity: 0.85;
         }
     }
-    .loading-spinner {
-        width: 48px;
-        height: 48px;
-        border: 3px solid color-mix(in oklch, var(--primary) 10%, transparent);
-        border-top: 3px solid var(--primary);
+    .fish-orbit {
+        position: relative;
+        width: 64px;
+        height: 64px;
+    }
+    /* faint ring suggesting the ripple the fish swims along */
+    .fish-track {
+        position: absolute;
+        inset: 8px;
         border-radius: 50%;
-        animation:
-            spin var(--spinnerInterval) linear infinite,
-            spinner-glow var(--spinnerInterval) ease-in-out infinite;
+        border: 2px dashed color-mix(in oklch, var(--primary) 22%, transparent);
+        animation: track-glow var(--spinnerInterval) ease-in-out infinite;
+    }
+    .fish {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 30px;
+        height: 22px;
+        /* centre the fish box on the container centre so it orbits that point */
+        margin-top: -11px;
+        margin-left: -15px;
+        color: var(--primary);
+        filter: drop-shadow(0 0 4px color-mix(in oklch, var(--primary) 60%, transparent));
+        animation: fish-swim var(--spinnerInterval) linear infinite;
+    }
+    .fish svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .fish {
+            animation: none;
+        }
     }
 
     @keyframes text-glow {
