@@ -89,7 +89,7 @@ edits, push them to `main` to put them online:
 
 ```bash
 git pull                                         # get the latest main first
-npm run build                                    # verify the build is green
+pnpm build                                       # verify the build is green
 git add -A && git commit -m "..."                # stage & commit your changes
 git push origin main                             # pushes to main; the workflow rebuilds & deploys
 ```
