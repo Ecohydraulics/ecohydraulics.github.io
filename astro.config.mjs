@@ -148,7 +148,14 @@ export default defineConfig({
         svelte({
             preprocess: vitePreprocess(),
         }),
-        sitemap(),
+        sitemap({
+            // Keep non-content routes out of the sitemap submitted to search engines:
+            // the disabled Decap CMS login and the feed landing pages.
+            filter: (page) =>
+                !page.includes("/admin/") &&
+                !page.includes("/atom/") &&
+                !page.includes("/rss/"),
+        }),
     ],
     markdown: {
         remarkPlugins: [
