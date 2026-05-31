@@ -39,3 +39,31 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Notify IndexNow (Bing, Yandex, …) about URLs changed in this push, once the
+  # new content is live. Runs only after a successful deploy.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Compute changed files
+        id: changes
+        run: |
+          if git cat-file -e "${{ github.event.before }}^{commit}" 2>/dev/null; then
+            DIFF=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")
+          else
+            DIFF=$(git diff --name-only HEAD~1 HEAD || true)
+          fi
+          {
+            echo "changed<<EOF"
+            echo "$DIFF"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Submit changed URLs to IndexNow
+        env:
+          CHANGED_FILES: ${{ steps.changes.outputs.changed }}
+        run: node scripts/indexnow-submit.mjs
