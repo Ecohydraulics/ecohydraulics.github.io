@@ -46,7 +46,15 @@ pnpm preview    # serve the built dist/ locally
 
 Almost everything is controlled from a single file: **`twilight.config.yaml`** (site title, banner text, navigation menus and their dropdown panels, sidebar widgets, music player, etc.). Page content lives under `src/content/` and `src/pages/`. Static assets (images, favicons) live under `public/`.
 
+> **Note:** `WP-backup-20260531/` is a frozen export of the old WordPress site,
+> kept for reference only. It is **not** part of the live site — do not edit,
+> move, or delete it.
+
 ## Adding content
+
+> **Maintainers:** see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full,
+> step-by-step workflow — cloning the repo, writing a post or page, and the
+> Git **stage → commit → push** steps that publish your change to the live site.
 
 ### Blog posts
 
@@ -76,10 +84,17 @@ The standalone menu pages (About, Community, Research, Leadership Team, …) liv
 
 ### Short version
 
+After cloning the repo (see [Installation](#installation)) and making your
+edits, push them to `main` to put them online:
 
+```bash
+git pull                                         # get the latest main first
+npm run build                                    # verify the build is green
+git add -A && git commit -m "..."                # stage & commit your changes
+git push origin main                             # pushes to main; the workflow rebuilds & deploys
 ```
-git add -A && git commit -m "..." && git push   # pushes to main, workflow rebuilds
-```
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the detailed workflow.
 
 ### Background
 Deployment is automated by GitHub Actions (`.github/workflows/deploy.yml`): every push to `main` builds the site with Node 24 + pnpm and publishes the static output to GitHub Pages.
