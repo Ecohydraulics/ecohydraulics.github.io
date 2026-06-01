@@ -12,6 +12,40 @@
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, gap 0.3s ease;
 }
 
+/*
+ * Dynamic collapse: whether the desktop nav links or the hamburger menu show is
+ * driven by JS (it adds .nav-expanded / .nav-collapsed to #navbar based on
+ * whether the row would overlap the top-right buttons). The plain media-query
+ * rules below are the pre-JS / no-JS fallback mirroring the old breakpoint.
+ */
+.navbar-nav-links {
+    display: none;
+}
+.navbar-menu-toggle {
+    display: block;
+}
+@media (min-width: 768px) {
+    .navbar-nav-links {
+        display: flex;
+    }
+    .navbar-menu-toggle {
+        display: none;
+    }
+}
+/* JS-driven state wins over the breakpoint fallback via #navbar specificity. */
+#navbar.nav-expanded .navbar-nav-links {
+    display: flex;
+}
+#navbar.nav-expanded .navbar-menu-toggle {
+    display: none;
+}
+#navbar.nav-collapsed .navbar-nav-links {
+    display: none;
+}
+#navbar.nav-collapsed .navbar-menu-toggle {
+    display: block;
+}
+
 /* 导航链接样式 */
 .nav-link-container {
     position: relative;

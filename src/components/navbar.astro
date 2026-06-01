@@ -10,7 +10,6 @@ import NavLinks from "@components/navbar/navLinks.astro";
 import NavMenu from "@components/navbar/navMenu.svelte";
 import Search from "@components/navbar/search.svelte";
 import Translator from "@components/navbar/translator.svelte";
-import DisplaySettings from "@components/navbar/displaySettings.svelte";
 import LightDarkSwitch from "@components/navbar/lightDarkSwitch.svelte";
 import WallpaperSwitch from "@components/navbar/wallpaperSwitch.svelte";
 
@@ -32,16 +31,16 @@ let links: NavbarLink[] = navbarConfig.links.map(
 
 <div id="navbar" class="z-50 onload-animation-down px-3 sm:px-6 md:px-0" data-transparent-mode={navbarTransparentMode}>
     <div class="absolute h-8 left-0 right-0 -top-8 bg-(--card-bg) transition"></div> <!-- used for onload animation -->
-    <div class:list={[
+    <div id="navbar-inner" class:list={[
         className,
         "overflow-visible! max-w-(--page-width) h-18 mx-auto flex items-center justify-between md:px-4"]}>
-        <a href={url('/')} class="btn-plain scale-animation rounded-lg h-13 px-5 font-bold active:scale-95">
+        <a href={url('/')} class="btn-plain scale-animation rounded-lg h-13 px-5 font-bold active:scale-95" id="navbar-home">
             <div class="flex flex-row text-(--primary) items-center text-md">
                 <Icon name="material-symbols:home-pin-outline" class="text-[1.75rem] mb-1 mr-2" />
                 {siteConfig.title}
             </div>
         </a>
-        <div class="hidden md:flex items-center navbar-nav-links">
+        <div class="items-center navbar-nav-links" id="navbar-nav-links">
             {links.map((l) => {
                 return <NavLinks link={l} />;
             })}
@@ -49,13 +48,82 @@ let links: NavbarLink[] = navbarConfig.links.map(
         <div class="flex items-center navbar-buttons" id="navbar-buttons">
             <Search client:idle></Search>
             <Translator client:idle></Translator>
-            <DisplaySettings client:idle></DisplaySettings>
             <LightDarkSwitch client:idle></LightDarkSwitch>
             <WallpaperSwitch client:idle></WallpaperSwitch>
             <NavMenu client:idle links={links}></NavMenu>
         </div>
     </div>
 </div>
+
+<script is:inline>
+// Dynamically collapse the desktop nav links into the hamburger menu whenever
+// the row would otherwise overlap the top-right buttons. Replaces the old fixed
+// `md` breakpoint so it adapts to the actual link/label widths and language.
+(function initNavCollapse() {
+    var BUFFER = 24; // px of breathing room before we consider the row "tight"
+
+    function measureNaturalWidth(el) {
+        // Measure the element's natural (un-shrunk) width regardless of its
+        // current display/grid constraints. Synchronous, so no visible flicker.
+        var prev = el.getAttribute("style");
+        el.style.position = "absolute";
+        el.style.visibility = "hidden";
+        el.style.display = "flex";
+        el.style.width = "max-content";
+        el.style.maxWidth = "none";
+        el.style.left = "-9999px";
+        var w = el.scrollWidth;
+        if (prev === null) el.removeAttribute("style");
+        else el.setAttribute("style", prev);
+        return w;
+    }
+
+    function update() {
+        var navbar = document.getElementById("navbar");
+        var inner = document.getElementById("navbar-inner");
+        var home = document.getElementById("navbar-home");
+        var navLinks = document.getElementById("navbar-nav-links");
+        var buttons = document.getElementById("navbar-buttons");
+        if (!navbar || !inner || !home || !navLinks || !buttons) return;
+
+        // Force the expanded layout so the buttons row excludes the hamburger
+        // and the home/buttons widths reflect the non-collapsed state.
+        navbar.classList.remove("nav-collapsed");
+        navbar.classList.add("nav-expanded");
+
+        var cs = getComputedStyle(inner);
+        var padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+        var available = inner.clientWidth - padX;
+        var needed = home.offsetWidth + measureNaturalWidth(navLinks) + buttons.offsetWidth + BUFFER;
+
+        if (needed > available) {
+            navbar.classList.remove("nav-expanded");
+            navbar.classList.add("nav-collapsed");
+        }
+    }
+
+    var scheduled = false;
+    function schedule() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(function () {
+            scheduled = false;
+            update();
+        });
+    }
+
+    // Initial, synchronous run avoids a flash of the wrong layout.
+    update();
+
+    window.addEventListener("resize", schedule, { passive: true });
+    // Re-measure once webfonts/icons settle, which can change link widths.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(schedule);
+    }
+    window.addEventListener("load", schedule, { passive: true });
+    window.initNavCollapse = update;
+})();
+</script>
 
 <script>
 // 为semifull模式添加滚动检测逻辑
