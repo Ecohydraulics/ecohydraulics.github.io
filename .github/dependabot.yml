@@ -1,22 +1,30 @@
 version: 2
 updates:
+  # JavaScript / npm dependencies
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    # A single combined PR for all non-major updates, so there is only one
+    # lockfile change per run and grouped PRs can never conflict with each
+    # other. Major bumps are intentionally left for manual handling.
     groups:
-      patch-updates:
+      npm-non-major:
         patterns:
           - "*"
         update-types:
           - "patch"
-      minor-updates:
-        patterns:
-          - "*"
-        update-types:
           - "minor"
-    pull-request-branch-name:
-      separator: "-"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+
+  # Keep the GitHub Actions used in our workflows up to date too.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions-all:
+        patterns:
+          - "*"
