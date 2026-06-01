@@ -3,10 +3,7 @@ title: "Leadership Team"
 description: "The IAHR Ecohydraulics Technical Committee leadership team."
 ---
 
-The IAHR Ecohydraulics Technical Committee Leadership Team advises the Chair on
-committee matters and serves the global ecohydraulics community. Members serve
-on behalf of six geographic regions to ensure diverse, equitable
-representation.
+The IAHR Ecohydraulics Technical Committee Leadership Team advises the Chair on committee matters and serves the global ecohydraulics community. Members serve on behalf of six geographic regions to ensure diverse, equitable representation.
 
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.5rem;margin-top:1.5rem">
 

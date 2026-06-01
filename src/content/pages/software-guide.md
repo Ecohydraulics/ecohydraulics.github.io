@@ -3,15 +3,7 @@ title: "Software Guide"
 description: "Software and methods relevant for ecohydraulics: decision support systems, analysis tools, numerical models, and pre/post-processors."
 ---
 
-This page provides lists of software and methods that are relevant for
-ecohydraulics. The first list contains frameworks (a.k.a. decision support
-systems) that guide overall decision-making efforts. The second list identifies
-software that directly performs ecohydraulic analysis. The third list identifies
-relevant numerical models that can provide the inputs needed for the software in
-the other lists. The fourth list provides an overview of popular pre- and
-post-processing software for numerical models. Software names are listed in
-alphabetic order. Feedback, updates, and new software for any of these lists are
-welcome.
+This page provides lists of software and methods that are relevant for ecohydraulics. The first list contains frameworks (a.k.a. decision support systems) that guide overall decision-making efforts. The second list identifies software that directly performs ecohydraulic analysis. The third list identifies relevant numerical models that can provide the inputs needed for the software in the other lists. The fourth list provides an overview of popular pre- and post-processing software for numerical models. Software names are listed in alphabetic order. Feedback, updates, and new software for any of these lists are welcome.
 
 
 ## Decision Support Systems

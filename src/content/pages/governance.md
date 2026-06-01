@@ -5,20 +5,15 @@ description: "How the IAHR Ecohydraulics Technical Committee is governed."
 
 ## Introduction
 
-This page provides essential information about how the IAHR Ecohydraulics
-Technical Committee (TC) is governed. All IAHR TCs are governed by a bylaws
-document, so this page excerpts key elements of the bylaws to highlight the most
-important points.
+This page provides essential information about how the IAHR Ecohydraulics Technical Committee (TC) is governed. All IAHR TCs are governed by a bylaws
+document, so this page excerpts key elements of the bylaws to highlight the most important points.
 
 ## TC purpose
 
 - Promote the science, practice and/or management techniques in its subject area.
 - Effectively contribute to the solution of global problems in its subject area.
-- Provide a forum for the exchange of information among and between researchers
-  and practitioners in its subject area.
-- Keep its members abreast of their field and alerted to future challenges and
-  opportunities by continually examining the present and likely future
-  directions of its subject area.
+- Provide a forum for the exchange of information among and between researchers and practitioners in its subject area.
+- Keep its members abreast of their field and alerted to future challenges and opportunities by continually examining the present and likely future directions of its subject area.
 - Enlarge the IAHR membership.
 
 ## TC activities
@@ -32,8 +27,7 @@ important points.
 - Coordinate with other TCs and organizations outside IAHR
 - Prepare review articles or special issues in IAHR journals\*
 
-*\*Required: Each Committee is expected to complete within a 4-year cycle at
-least one product in each starred category.*
+*\*Required: Each Committee is expected to complete within a 4-year cycle at least one product in each starred category.*
 
 ## TC powers
 
@@ -41,9 +35,7 @@ least one product in each starred category.*
 
 ## Membership
 
-- Any member of IAHR who is interested in the activities of the Committee and
-  who is professionally active in the Committee subject area may be considered a
-  Committee member.
+- Any member of IAHR who is interested in the activities of the Committee and who is professionally active in the Committee subject area may be considered a Committee member.
 - Each IAHR member picks 1 primary TC (full vote) and 0–2 secondary TCs (half vote).
 - Membership is managed through the electronic Membership Platform (eMP).
 
@@ -81,5 +73,4 @@ least one product in each starred category.*
 - IAHR SurveyMonkey account for online elections and surveys.
 - File transfer capability.
 - Technical capability to help organize live-stream webinars and host Zoom meetings.
-- Communications: email every member directly on behalf of the chair/vice chair,
-  and post information to a web page.
+- Communications: email every member directly on behalf of the chair/vice chair, and post information to a web page.

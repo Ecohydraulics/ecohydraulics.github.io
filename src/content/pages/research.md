@@ -5,10 +5,7 @@ description: "Connecting the ecohydraulics community through research."
 
 ## Introduction
 
-Ultimately, most of us are part of the ecohydraulics community because we are
-doing research driven by fundamental curiosity and a commitment to help society
-manage and restore functioning aquatic and riparian ecosystems. The pages below
-help connect us through our research.
+Ultimately, most of us are part of the ecohydraulics community because we are doing research driven by fundamental curiosity and a commitment to help society manage and restore functioning aquatic and riparian ecosystems. The pages below help connect us through our research.
 
 ## In this section
 

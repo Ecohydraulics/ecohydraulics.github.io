@@ -18,32 +18,21 @@ The 16th International Symposium on Ecohydraulics will be held at the École Pol
 
 ### Past Symposia
 
-The ISE series grew out of the International Symposium on Habitat Hydraulics
-first held in 1994 and has been organized roughly every two years since. The
-list below is in reverse-chronological order; organizers and host institutions
-are noted where known.
+The ISE series grew out of the International Symposium on Habitat Hydraulics first held in 1994 and has been organized roughly every two years since. The list below is in reverse-chronological order; organizers and host institutions are noted where known.
 
-- **2024 - Québec City, Canada.** 15th ISE, held jointly with the International
-  Conference on Fish Passage ([ise-fp2024.org](https://ise-fp2024.org/)).
+- **2024 - Québec City, Canada.** 15th ISE, held jointly with the International Conference on Fish Passage ([ise-fp2024.org](https://ise-fp2024.org/)).
 - **2022 - Nanjing, China.** 14th ISE, hosted by Hohai University.
-- **2020 - Online.** 13th ISE; the planned in-person symposium was held virtually
-  amid the COVID-19 pandemic.
-- **2018 - Tokyo, Japan.** 12th ISE, convened jointly by IAHR and the
-  International Society for River Science (ISRS).
+- **2020 - Online.** 13th ISE; the planned in-person symposium was held virtually amid the COVID-19 pandemic.
+- **2018 - Tokyo, Japan.** 12th ISE, convened jointly by IAHR and the International Society for River Science (ISRS).
 - **2016 - Melbourne, Australia.** 11th ISE.
-- **2014 - Trondheim, Norway.** 10th ISE, hosted by NTNU and SINTEF - the last
-  ISE held physically in Europe before 2026.
+- **2014 - Trondheim, Norway.** 10th ISE, hosted by NTNU and SINTEF - the last ISE held physically in Europe before 2026.
 - **2012 - Vienna, Austria.** 9th ISE, hosted by BOKU University.
 - **2010 - Seoul, South Korea.** 8th ISE.
 - **2009 - Concepción, Chile.** 7th ISE.
 - **2007 - Christchurch, New Zealand.** 6th ISE.
 - **2004 - Madrid, Spain.** 5th ISE.
-- **2002 - Cape Town, South Africa.** 4th ISE, themed "Environmental Flows for
-  River Systems."
+- **2002 - Cape Town, South Africa.** 4th ISE, themed "Environmental Flows for River Systems."
 - **1999 - Salt Lake City, USA.** 3rd ISE.
-- **1997 - Fremantle, Australia.** Second International Symposium on Ecohydraulics
-  (the parallel "ecology and engineering" track of the early series).
-- **1996 - Québec City, Canada.** 2nd International Symposium on Habitat
-  Hydraulics.
-- **1994 - Trondheim, Norway.** 1st International Symposium on Habitat Hydraulics,
-  where the series began.
+- **1997 - Fremantle, Australia.** Second International Symposium on Ecohydraulics (the parallel "ecology and engineering" track of the early series).
+- **1996 - Québec City, Canada.** 2nd International Symposium on Habitat Hydraulics.
+- **1994 - Trondheim, Norway.** 1st International Symposium on Habitat Hydraulics, where the series began.
