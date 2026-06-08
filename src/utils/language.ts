@@ -123,6 +123,54 @@ export function getSiteLanguage(configLang?: string): string {
     return langToTranslateMap[browserLang];
 }
 
+// Gender-neutral / preferred custom translation terms, keyed by translate.js
+// target-language code. translate.js machine-translates English at runtime, so
+// these force specific wordings (e.g. inclusive role nouns) instead of the
+// default gendered output. German uses neutral participles (Forschende, ...);
+// French and Spanish use inclusive doublets. Each entry is "english=target".
+const CUSTOM_TRANSLATION_TERMS: Record<string, string> = {
+    // English -> German
+    deutsch: `
+researchers=Forschende
+researcher=forschende Person
+practitioners=Praktizierende
+practitioner=praktizierende Person
+scientists=Forschende
+scientist=forschende Person
+website=Webseite
+Website=Webseite
+the people=Menschen
+`,
+    // English -> French
+    french: `
+researchers=chercheuses et chercheurs
+researcher=chercheuse ou chercheur
+practitioners=praticiennes et praticiens
+practitioner=praticienne ou praticien
+scientists=scientifiques
+scientist=scientifique
+`,
+    // English -> Spanish
+    spanish: `
+researchers=investigadoras e investigadores
+researcher=persona investigadora
+practitioners=profesionales
+practitioner=profesional
+scientists=científicas y científicos
+scientist=persona científica
+`,
+};
+
+// Register the custom term dictionary with translate.js. Must run before
+// translate.execute() so the overrides apply on the first render; the data
+// persists on the translate object, so later language switches use it too.
+function registerCustomTranslationTerms(translate: any, sourceLang: string): void {
+    if (!translate?.nomenclature?.append) return;
+    for (const [targetLang, properties] of Object.entries(CUSTOM_TRANSLATION_TERMS)) {
+        translate.nomenclature.append(sourceLang, targetLang, properties);
+    }
+}
+
 // Initialize the translation feature
 export function initTranslateService(): void {
     if (typeof window === "undefined" || !siteConfig.translate?.enable) return;
@@ -176,6 +224,8 @@ export function initTranslateService(): void {
         }
         return localStorage.getItem(key);
     };
+    // Register gender-neutral / preferred custom translation terms
+    registerCustomTranslationTerms(translate, sourceLang);
     // Start the translation listener
     translate.listener.start();
     (window as any).translateInitialized = true;
