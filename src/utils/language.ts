@@ -131,6 +131,8 @@ export function getSiteLanguage(configLang?: string): string {
 const CUSTOM_TRANSLATION_TERMS: Record<string, string> = {
     // English -> German
     deutsch: `
+Early Careers on Ecohydraulics Network=Early-Career Netzwerk
+Early Career Ecohydraulics Network=Early-Career Netzwerk
 researchers=Forschende
 researcher=forschende Person
 practitioners=Praktizierende
@@ -163,17 +165,39 @@ scientist=persona científica
 
 // Brand names / proper nouns that must never be machine-translated in any
 // language. ECoENet (Early Career Ecohydraulics Network) is an acronym that
-// translation engines otherwise mangle.
+// translation engines otherwise mangle. Handled via the ignore list, which is
+// language-independent.
 const DO_NOT_TRANSLATE = ["ECoENet"];
 const DO_NOT_TRANSLATE_REGEXES = [/ECoENet/gi];
+
+// Terms that must read identically in every language: "ecohydraulics" (a precise
+// technical term) and "community" (the site's brand word). Kept via self-mapping
+// custom terms (rather than the ignore list) so that longer custom phrases which
+// contain them — e.g. the German ECoENet name above — still take precedence
+// (nomenclature matches longest keys first, whereas the ignore pass would split
+// the word out before that).
+const NEVER_TRANSLATE_TERMS = [
+    "ecohydraulics=ecohydraulics",
+    "Ecohydraulics=Ecohydraulics",
+    "community=community",
+    "Community=Community",
+].join("\n") + "\n";
 
 // Register the custom term dictionary with translate.js. Must run before
 // translate.execute() so the overrides apply on the first render; the data
 // persists on the translate object, so later language switches use it too.
 function registerCustomTranslationTerms(translate: any, sourceLang: string): void {
     if (!translate?.nomenclature?.append) return;
+    // Language-specific overrides (gender-neutral terms, German ECoENet name, ...)
     for (const [targetLang, properties] of Object.entries(CUSTOM_TRANSLATION_TERMS)) {
         translate.nomenclature.append(sourceLang, targetLang, properties);
+    }
+    // Keep "ecohydraulics" identical across every supported target language
+    const seen = new Set<string>([sourceLang]);
+    for (const targetLang of Object.values(langToTranslateMap)) {
+        if (!targetLang || seen.has(targetLang)) continue;
+        seen.add(targetLang);
+        translate.nomenclature.append(sourceLang, targetLang, NEVER_TRANSLATE_TERMS);
     }
 }
 
