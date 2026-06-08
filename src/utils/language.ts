@@ -161,6 +161,12 @@ scientist=persona científica
 `,
 };
 
+// Brand names / proper nouns that must never be machine-translated in any
+// language. ECoENet (Early Career Ecohydraulics Network) is an acronym that
+// translation engines otherwise mangle.
+const DO_NOT_TRANSLATE = ["ECoENet"];
+const DO_NOT_TRANSLATE_REGEXES = [/ECoENet/gi];
+
 // Register the custom term dictionary with translate.js. Must run before
 // translate.execute() so the overrides apply on the first render; the data
 // persists on the translate object, so later language switches use it too.
@@ -168,6 +174,23 @@ function registerCustomTranslationTerms(translate: any, sourceLang: string): voi
     if (!translate?.nomenclature?.append) return;
     for (const [targetLang, properties] of Object.entries(CUSTOM_TRANSLATION_TERMS)) {
         translate.nomenclature.append(sourceLang, targetLang, properties);
+    }
+}
+
+// Tell translate.js to leave brand names untranslated. ignore.text covers
+// standalone text nodes (e.g. the navbar label); the regex covers occurrences
+// inside larger sentences.
+function registerTranslationIgnores(translate: any): void {
+    if (!translate?.ignore) return;
+    if (Array.isArray(translate.ignore.text)) {
+        for (const term of DO_NOT_TRANSLATE) {
+            if (translate.ignore.text.indexOf(term) === -1) {
+                translate.ignore.text.push(term);
+            }
+        }
+    }
+    if (typeof translate.ignore.setTextRegexs === "function") {
+        translate.ignore.setTextRegexs(DO_NOT_TRANSLATE_REGEXES);
     }
 }
 
@@ -226,6 +249,8 @@ export function initTranslateService(): void {
     };
     // Register gender-neutral / preferred custom translation terms
     registerCustomTranslationTerms(translate, sourceLang);
+    // Keep brand names (e.g. ECoENet) untranslated in every language
+    registerTranslationIgnores(translate);
     // Start the translation listener
     translate.listener.start();
     (window as any).translateInitialized = true;
