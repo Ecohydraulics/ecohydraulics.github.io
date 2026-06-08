@@ -24,7 +24,7 @@ if (currentPath && !targetUrl) {
     }
 }
 
-// 如果既没有传入 href，也没能根据 currentPath 找到父级菜单，则不渲染
+// If no href was passed and no parent menu could be found from currentPath, don't render
 if (!targetUrl) {
     return null;
 }

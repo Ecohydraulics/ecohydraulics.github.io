@@ -1,7 +1,7 @@
 ---
 /**
- * Astro 图标组件 - 优先使用构建时内联 SVG
- * 如果静态数据中不存在，则回退到运行时 iconify-icon (不推荐)
+ * Astro icon component - prefers build-time inline SVG
+ * Falls back to runtime iconify-icon if not in the static data (not recommended)
  */
 import { getIconSvg, hasIcon } from "@utils/icons";
 
@@ -26,7 +26,7 @@ const {
     loading = "lazy",
 } = Astro.props;
 
-// 尺寸映射
+// Size mapping
 const sizeClasses = {
     xs: "text-xs",
     sm: "text-sm",

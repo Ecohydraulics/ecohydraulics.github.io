@@ -1,14 +1,14 @@
 name: Deploy to GitHub Pages
 
 on:
-  # 每次推送到 `main` 分支时触发这个“工作流程”
-  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
+  # Trigger this workflow on every push to the `main` branch
+  # If you use a different branch name, replace `main` with your branch name as needed
   push:
     branches: [ main ]
-  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
+  # Allows you to trigger this workflow manually from the Actions tab on GitHub
   workflow_dispatch:
 
-# 允许 job 克隆 repo 并创建一个 page deployment
+# Allow the job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
@@ -27,7 +27,7 @@ jobs:
           package-manager: pnpm@9.14.4
           build-cmd: pnpm run build
         # env:
-          # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # 对变量值使用单引号。（可选）
+          # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # Use single quotes for variable values. (optional)
 
   deploy:
     needs: build

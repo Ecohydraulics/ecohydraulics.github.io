@@ -1,147 +1,147 @@
-# 站点配置
+# Site configuration
 site:
-    # 站点 URL（以斜杠结尾）
+    # Site URL (with trailing slash)
     siteURL: "https://ecohydraulics.org/"
-    # 站点标题
+    # Site title
     title: "ECOHYDRAULICS"
-    # 站点副标题
+    # Site subtitle
     subtitle: "From the community for the community"
-    # 语言配置
+    # Language
     lang: "en"
-    # 翻译配置
+    # Translation configuration
     translate:
-        # 启用翻译功能
+        # Enable the translation feature
         enable: true
-        # 翻译服务
+        # Translation service
         service: "client.edge"
-        # 显示语言选择下拉框
+        # Show the language selector dropdown
         showSelectTag: false
-        # 自动检测用户语言
+        # Auto-detect the user's language
         autoDiscriminate: true
-        # 翻译时忽略的 CSS 类名
+        # CSS class names to ignore when translating
         ignoreClasses:
             - "ignore"
             - "banner-title"
             - "banner-subtitle"
-        # 翻译时忽略的 HTML 标签
+        # HTML tags to ignore when translating
         ignoreTags:
             - "script"
             - "style"
             - "code"
             - "pre"
-    # 时区配置
+    # Time zone
     timeZone: 8
-    # 字体配置
+    # Font configuration
     font:
-        # 示例字体配置 - Zen Maru Gothic
+        # Example font configuration - Zen Maru Gothic
         "Example - ZenMaruGothic":
-            # 字体源 (字体 CSS 链接 | 字体文件路径)
+            # Font source (font CSS link | font file path)
             src: "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap"
-            # 字体名 (font-family)
+            # Font name (font-family)
             family: "Zen Maru Gothic"
-    # 主题色配置
+    # Theme color configuration
     themeColor:
-        # 主题色的默认色相 (范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345)
+        # Default hue of the theme color (range 0 to 360. e.g. red: 0, cyan: 200, teal: 250, pink: 345)
         hue: 255
-    # 默认主题 ("system" 跟随系统 | "light" 浅色 | "dark" 深色)
+    # Default theme ("system" follows the OS | "light" | "dark")
     defaultTheme: "dark"
-    # 壁纸配置
+    # Wallpaper configuration
     wallpaper:
-        # 模式 ("banner" 横幅 | "fullscreen" 全屏 | "none" 纯色)
+        # Mode ("banner" | "fullscreen" | "none" solid color)
         mode: "banner"
-        # 图片源配置 (fullscreen 和 banner 模式共享)
+        # Image source configuration (shared by fullscreen and banner modes)
         src:
-            # 桌面壁纸图片 (相对于 /public 目录; 支持单张图片或图片数组，当数组长度 > 1 时自动启用轮播)
+            # Desktop wallpaper images (relative to /public; supports a single image or an array, carousel auto-enabled when length > 1)
             desktop:
                 - "/assets/images/desktopWallpaper_1.jpg"
                 - "/assets/images/desktopWallpaper_2.jpg"
                 - "/assets/images/desktopWallpaper_3.jpg"
                 - "/assets/images/desktopWallpaper_4.jpg"
-            # 移动壁纸图片 (相对于 /public 目录; 支持单张图片或图片数组，当数组长度 > 1 时自动启用轮播)
+            # Mobile wallpaper images (relative to /public; supports a single image or an array, carousel auto-enabled when length > 1)
             mobile:
                 - "/assets/images/mobileWallpaper_1.jpg"
                 - "/assets/images/mobileWallpaper_2.jpg"
-        # 壁纸位置 ('top' | 'center' | 'bottom')
+        # Wallpaper position ('top' | 'center' | 'bottom')
         position: "center"
-        # 轮播配置 (fullscreen 和 banner 模式共享)
+        # Carousel configuration (shared by fullscreen and banner modes)
         carousel:
-            # 为多张图片启用轮播，否则随机显示一张图片
+            # Enable the carousel for multiple images, otherwise show a random image
             enable: true
-            # 轮播间隔时间 (秒)
+            # Carousel interval (seconds)
             interval: 3.6
-            # 启用 Ken Burns 效果
+            # Enable the Ken Burns effect
             kenBurns: true
-        # Banner 模式专属配置
+        # Banner-mode-only configuration
         banner:
-            # 横幅文本配置
+            # Banner text configuration
             homeText:
-                # 在主页显示文本
+                # Show text on the home page
                 enable: true
-                # 主标题
+                # Main title
                 title: "ECOHYDRAULICS"
-                # 副标题，支持单个字符串或字符串数组
+                # Subtitle, supports a single string or an array of strings
                 subtitle:
                     - "From the community for the community"
-                # 副标题打字机效果
+                # Subtitle typewriter effect
                 typewriter:
-                    # 启用副标题打字机效果
+                    # Enable the subtitle typewriter effect
                     enable: true
-                    # 打字速度 (毫秒)
+                    # Typing speed (milliseconds)
                     speed: 111
-                    # 删除速度 (毫秒)
+                    # Deleting speed (milliseconds)
                     deleteSpeed: 51
-                    # 完全显示后的暂停时间 (毫秒)
+                    # Pause time after fully displayed (milliseconds)
                     pauseTime: 3000
-            # 横幅图片来源文本
+            # Banner image credit text
             credit:
-                # 显示横幅图片来源文本
+                # Show the banner image credit text
                 enable: false
-                # 要显示的来源文本
+                # Credit text to display
                 text: "Describe"
-                # (可选) 原始艺术品或艺术家页面的 URL 链接
+                # (Optional) URL link to the original artwork or artist page
                 url: ""
-            # 导航栏配置
+            # Navbar configuration
             navbar:
-                # 导航栏透明模式 ("semi" 半透明加圆角 | "full" 完全透明 | "semifull" 动态透明)
+                # Navbar transparency mode ("semi" semi-transparent with rounded corners | "full" fully transparent | "semifull" dynamic transparency)
                 transparentMode: "semifull"
-            # 水波纹效果配置
+            # Water wave effect configuration
             waves:
-                # 启用水波纹效果
+                # Enable the water wave effect
                 enable: true
-                # 启用性能模式 (简化波浪效果以提升性能)
+                # Enable performance mode (simplified wave effect for better performance)
                 performanceMode: false
-        # Fullscreen 模式专属配置
+        # Fullscreen-mode-only configuration
         fullscreen:
-            # 层级
+            # z-index
             zIndex: -1
-            # 壁纸透明度，0-1之间
+            # Wallpaper opacity, between 0 and 1
             opacity: 0.9
-            # 背景模糊程度 (像素值)
+            # Background blur amount (pixels)
             blur: 1
-            # 导航栏透明模式
+            # Navbar transparency mode
             navbar:
                 transparentMode: "semi"
-    # 加载页配置
+    # Loading overlay configuration
     loadingOverlay:
-        # 是否启用加载页
+        # Whether to enable the loading overlay
         enable: true
-        # 是否等待所有资源 (如图片、样式表) 加载完成
+        # Whether to wait for all resources (e.g. images, stylesheets) to finish loading
         waitForAllResources: true
-        # 加载标题配置
+        # Loading title configuration
         title:
-            # 是否启用加载标题
+            # Whether to enable the loading title
             enable: true
-            # 加载标题文本
+            # Loading title text
             content: "Splashing"
-            # 动画周期 (s)
+            # Animation cycle (s)
             interval: 1.5
-        # 加载动画配置
+        # Loading spinner configuration
         spinner:
-            # 是否启用加载动画
+            # Whether to enable the loading spinner
             enable: true
-            # 动画周期 (s)
+            # Animation cycle (s)
             interval: 1.5
-    # favicon 配置
+    # Favicon configuration
     favicon:
         - src: "/favicon/ecohydraulics-32.png"
           sizes: "32x32"
@@ -151,35 +151,35 @@ site:
           sizes: "180x180"
         - src: "/favicon/ecohydraulics-192.png"
           sizes: "192x192"
-    # bangumi 配置
+    # Bangumi configuration
     bangumi:
-        # 用户 ID
+        # User ID
         userId: "your-bangumi-id"
-    # OpenGraph 配置
+    # OpenGraph configuration
     generateOgImages: false
 
-# 统计配置
+# Analytics configuration
 analytics:
-    # 是否启用统计
+    # Whether to enable analytics
     enabled: false
-    # 统计平台
+    # Analytics platform
     platform: "umami"
-    # Umami 统计配置
+    # Umami analytics configuration
     umami:
-        # Umami API 地址
+        # Umami API URL
         baseUrl: "https://api.umami.is"
-        # API 密钥
+        # API key
         apiKey: ''
         # Tracking code
         code: ''
 
-# 导航栏配置 (镜像自 ecohydraulics.org 的 WordPress 主菜单)
+# Navbar configuration (mirrors the WordPress main menu of ecohydraulics.org)
 navbar:
-    # 链接配置 (链接预设位于 src/constants/link-presets.ts 的 LinkPresets)
+    # Link configuration (link presets are in LinkPresets in src/constants/link-presets.ts)
     links:
-        - # 一级导航链接 - 主页 (预设)
+        - # Top-level nav link - Home (preset)
             "Home"
-        - # About (含下拉面板)
+        - # About (with dropdown panel)
             name: "About"
             url: "/about/"
             icon: "material-symbols:info"
@@ -200,7 +200,7 @@ navbar:
                 - name: "Elections"
                   url: "/elections/"
                   icon: "material-symbols:how-to-vote"
-        - # Community (含下拉面板)
+        - # Community (with dropdown panel)
             name: "Community"
             url: "/community/"
             icon: "material-symbols:diversity-3"
@@ -221,7 +221,7 @@ navbar:
                 - name: "Video Channel"
                   url: "https://www.youtube.com/@ecohydraulics9581"
                   icon: "fa6-brands:youtube"
-        - # Education (含下拉面板)
+        - # Education (with dropdown panel)
             name: "Education"
             url: "/events/"
             icon: "material-symbols:school"
@@ -230,7 +230,7 @@ navbar:
                 - name: "Training"
                   url: "/training/"
                   icon: "material-symbols:fitness-center"
-        - # Research (含下拉面板)
+        - # Research (with dropdown panel)
             name: "Research"
             url: "/research/"
             icon: "material-symbols:science"
@@ -242,258 +242,258 @@ navbar:
                 - name: "Software Guide"
                   url: "/software-guide/"
                   icon: "material-symbols:code"
-        - # ECoENet (一级链接)
+        - # ECoENet (top-level link)
             name: "ECoENet"
             url: "/ecoenet/"
             icon: "material-symbols:hub"
             description: "Early Career Ecohydraulics Network"
-        - # Blog (映射到归档预设)
+        - # Blog (mapped to the archive preset)
             name: "Blog"
             url: "/archive/"
             icon: "material-symbols:rss-feed"
             description: "Ecohydraulics blog"
 
-# 侧边栏配置
+# Sidebar configuration
 sidebar:
-    # 侧边栏组件配置列表 (侧栏组件预设位于 src/types/config.ts 的 WidgetComponentType)
+    # List of sidebar component configurations (sidebar component presets are in WidgetComponentType in src/types/config.ts)
     components:
-        # 左侧侧边栏 (目录/类别/标签面板已按需求移除)
+        # Left sidebar (TOC/categories/tags panels removed as required)
         left: []
-        # 右侧侧边栏
+        # Right sidebar
         right:
-            - # 组件 - 资料 (预设)
-                # 类型
+            - # Component - profile (preset)
+                # Type
                 type: "profile"
-                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
+                # Position strategy ("top" fixed at top | "sticky")
                 position: "top"
-                # 页面可见性配置
+                # Page visibility configuration
                 visibility:
-                    # 匹配模式：'include' (包含), 'exclude' (排除)
+                    # Match mode: 'include', 'exclude'
                     mode: "exclude"
-                    # 页面路径匹配规则列表 (支持正则字符串)
+                    # List of page path match rules (regex strings supported)
                     paths: ["^/posts/", "^/archive"]
-            - # 组件 - 公告 (预设)
-                # 类型
+            - # Component - announcement (preset)
+                # Type
                 type: "announcement"
-                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
+                # Position strategy ("top" fixed at top | "sticky")
                 position: "top"
-                # 页面可见性配置
+                # Page visibility configuration
                 visibility:
-                    # 匹配模式：'include' (包含), 'exclude' (排除)
+                    # Match mode: 'include', 'exclude'
                     mode: "include"
-                    # 页面路径匹配规则列表 (支持正则字符串)
+                    # List of page path match rules (regex strings supported)
                     paths: ["^/$"]
-            - # 组件 - 文章目录 (预设)
-                # 类型
+            - # Component - table of contents (preset)
+                # Type
                 type: "toc"
-                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
+                # Position strategy ("top" fixed at top | "sticky")
                 position: "sticky"
-                # 目录深度 (1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推)
+                # TOC depth (1-6, 1 shows only h1 headings, 2 shows h1 and h2, and so on)
                 depth: 3
-            - # 组件 - 文章统计 (预设)
-                # 类型
+            - # Component - post statistics (preset)
+                # Type
                 type: "statistics"
-                # 位置策略 ("top" 顶部固定 | "sticky" 粘性)
+                # Position strategy ("top" fixed at top | "sticky")
                 position: "sticky"
-                # 页面可见性配置
+                # Page visibility configuration
                 visibility:
-                    # 匹配模式：'include' (包含), 'exclude' (排除)
+                    # Match mode: 'include', 'exclude'
                     mode: "include"
-                    # 页面路径匹配规则列表 (支持正则字符串)
+                    # List of page path match rules (regex strings supported)
                     paths: ["^/$", "^/archive$"]
 
-# 资料配置
+# Profile configuration
 profile:
-    # 头像配置 (相对于 /public 目录)
+    # Avatar configuration (relative to /public)
     avatar: "/assets/images/ecohydraulics.png"
-    # 信息配置
+    # Name
     name: "Ecohydraulics"
-    # 简介配置
+    # Bio
     bio: "From the community for the community"
-    # 链接配置
+    # Link configuration
     links:
         - name: "YouTube"
           icon: "fa6-brands:youtube"
           url: "https://www.youtube.com/@ecohydraulics9581"
 
-# 公告配置
+# Announcement configuration
 announcement:
-    # 公告标题
+    # Announcement title
     title: "Welcome"
-    # 公告内容
+    # Announcement content
     content: "Welcome to the Ecohydraulics community website!"
-    # 允许用户关闭公告
+    # Allow the user to close the announcement
     closable: true
-    # 链接配置
+    # Link configuration
     link:
-        # 启用链接
+        # Enable the link
         enable: true
-        # 链接文本
+        # Link text
         text: "Learn More"
-        # 链接 URL
+        # Link URL
         url: "/about/"
-        # 是否外部链接
+        # Whether it is an external link
         external: false
 
-# 文章配置
+# Post configuration
 post:
-    # 文章卡片配置
+    # Post card configuration
     card:
-        # 封面
+        # Cover
         cover:
-            # 位置 ("left" | "right")
+            # Position ("left" | "right")
             side: "left"
-            # 封面宽度
+            # Cover width
             width: "33%"
-            # 封面上是否显示文字 (标题、标签、摘要)
+            # Whether to show text (title, tags, excerpt) on the cover
             showContent: true
-        # 标题大小 (Tailwind 文本大小类，例如 "text-3xl")
+        # Title size (Tailwind text size class, e.g. "text-3xl")
         titleSize: "text-2xl"
-    # 显示"上次编辑"卡片
+    # Show the "last modified" card
     showLastModified: true
-    # 代码高亮配置
+    # Code highlighting configuration
     expressiveCode:
-        # 主题
+        # Theme
         theme: "github-dark"
-    # 许可证配置
+    # License configuration
     license:
-        # 启用许可证
+        # Enable the license
         enable: true
-        # 许可证名称
+        # License name
         name: "CC BY-NC-SA 4.0"
-        # 许可证链接
+        # License URL
         url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-    # 评论配置
+    # Comment configuration
     comment:
-        # 启用评论功能
+        # Enable the comment feature
         enable: false
-        # Twikoo 评论系统配置
+        # Twikoo comment system configuration
         twikoo:
-            # 环境 ID
+            # Environment ID
             envId: "https://twikoo.vercel.app"
-            # 语言
+            # Language
             lang: "en"
 
-# 页脚配置
+# Footer configuration
 footer:
-    # 启用 Footer HTML 注入功能
+    # Enable footer HTML injection
     enable: false
-    # 自定义 HTML 内容，用于添加备案号等信息
+    # Custom HTML content, for adding ICP license numbers and similar info
     customHtml: ""
 
-# 粒子特效配置
+# Particle effect configuration
 particle:
-    # 启用粒子特效
+    # Enable the particle effect
     enable: true
-    # 粒子数量
+    # Number of particles
     particleNum: 12
-    # 粒子越界限制次数，-1为无限循环
+    # Number of out-of-bounds wraps allowed per particle, -1 for infinite
     limitTimes: -1
-    # 粒子尺寸配置
+    # Particle size configuration
     size:
-        # 粒子最小尺寸倍数
+        # Minimum particle size multiplier
         min: 0.3
-        # 粒子最大尺寸倍数
+        # Maximum particle size multiplier
         max: 0.9
-    # 粒子透明度配置
+    # Particle opacity configuration
     opacity:
-        # 粒子最小不透明度
+        # Minimum particle opacity
         min: 0.3
-        # 粒子最大不透明度
+        # Maximum particle opacity
         max: 0.9
-    # 粒子移动速度配置
+    # Particle movement speed configuration
     speed:
-        # 水平移动速度
+        # Horizontal movement speed
         horizontal:
-            # 最小值
+            # Minimum value
             min: -0.9
-            # 最大值
+            # Maximum value
             max: 0.9
-        # 垂直移动速度
+        # Vertical movement speed
         vertical:
-            # 最小值
+            # Minimum value
             min: 0.15
-            # 最大值
+            # Maximum value
             max: 0.3
-        # 旋转速度
+        # Rotation speed
         rotation: 0.12
-        # 消失速度
+        # Fade-out speed
         fadeSpeed: 0.12
-    # 粒子层级
+    # Particle z-index
     zIndex: 100
 
-# 音乐播放器配置
+# Music player configuration
 musicPlayer:
-    # 启用音乐播放器功能
+    # Enable the music player feature
     enable: false
-    # 默认模式 ("meting" API | "local" 本地)
+    # Default mode ("meting" API | "local")
     mode: "meting"
-    # meting 模式专属配置
+    # meting-mode-only configuration
     meting:
-        # Meting API 地址
+        # Meting API URL
         meting_api: "https://meting.spr-aachen.com/api"
-        # 音乐平台
+        # Music platform
         server: "netease"
-        # 类型 ("playlist" 歌单 | "song" 单曲)
+        # Type ("playlist" | "song")
         type: "playlist"
-        # 资源 ID
+        # Resource ID
         id: "2161912966"
-    # local 模式专属配置
+    # local-mode-only configuration
     local:
-        # 播放列表
+        # Playlist
         playlist:
-            - # 列表示例
-                # 序号
+            - # List example
+                # Index
                 id: 1
-                # 标题
+                # Title
                 title: "深海之息"
-                # 作者
+                # Artist
                 artist: "Youzee Music"
-                # 封面
+                # Cover
                 cover: "https://p1.music.126.net/PhKOqFtljgHDDpKYM2ADUA==/109951169858309716.jpg"
-                # 音乐路径
+                # Music file path
                 url: "assets/music/深海之息.m4a"
-                # 歌词路径
+                # Lyrics file path
                 lrc: "assets/music/深海之息.lrc"
-                # 时长
+                # Duration
                 duration: 146
-    # 是否自动播放
+    # Whether to autoplay
     autoplay: true
 
-# 看板娘配置
+# Live2D mascot (pio) configuration
 pio:
-    # 启用看板娘
+    # Enable the mascot
     enable: false
-    # 模型文件路径
+    # Model file paths
     models:
         - "/pio/models/pio/model.json"
-    # 看板娘位置
+    # Mascot position
     position: "left"
-    # 看板娘宽度
+    # Mascot width
     width: 280
-    # 看板娘高度
+    # Mascot height
     height: 250
-    # 展现模式
+    # Display mode
     mode: "draggable"
-    # 是否在移动设备上隐藏
+    # Whether to hide on mobile devices
     hiddenOnMobile: true
-    # 对话框配置
+    # Dialog configuration
     dialog:
-        # 欢迎词
+        # Welcome message
         welcome: "Welcome!"
-        # 触摸提示
+        # Touch prompts
         touch:
             - "What are you doing?"
             - "Stop touching me!"
             - "Don't bully me like that!"
             - "(｡í _ ì｡)"
-        # 首页提示
+        # Home page prompt
         home: "Click here to go back to homepage!"
-        # 换装提示
+        # Skin/outfit change prompts
         skin:
             - "Want to see my new outfit?"
             - "The new outfit looks great~"
-        # 关闭提示
+        # Close prompt
         close: "See you next time~"
-        # 关于链接
+        # About link
         link: "https://nav.kungal.org"

@@ -10,7 +10,7 @@ existing WordPress site.)
 
 ## Prerequisites
 
-- **Node.js v24 (latest LTS)** — Astro 5 requires Node `>=18.20.8`; this project
+- **Node.js v24 (latest LTS)** -- Astro 5 requires Node `>=18.20.8`; this project
   is built and tested on Node 24. Using [nvm](https://github.com/nvm-sh/nvm):
 
   ```bash
@@ -18,7 +18,7 @@ existing WordPress site.)
   nvm use 24
   ```
 
-- **pnpm 9** — the package manager used by this project:
+- **pnpm 9** -- the package manager used by this project:
 
   ```bash
   corepack enable
@@ -47,18 +47,18 @@ pnpm preview    # serve the built dist/ locally
 Almost everything is controlled from a single file: **`twilight.config.yaml`** (site title, banner text, navigation menus and their dropdown panels, sidebar widgets, music player, etc.). Page content lives under `src/content/` and `src/pages/`. Static assets (images, favicons) live under `public/`.
 
 > **Note:** `WP-backup-20260531/` is a frozen export of the old WordPress site,
-> kept for reference only. It is **not** part of the live site — do not edit,
+> kept for reference only. It is **not** part of the live site -- do not edit,
 > move, or delete it.
 
 ## Adding content
 
 > **Maintainers:** see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full,
-> step-by-step workflow — cloning the repo, writing a post or page, and the
+> step-by-step workflow -- cloning the repo, writing a post or page, and the
 > Git **stage → commit → push** steps that publish your change to the live site.
 
 ### Blog posts
 
-Put **future blog posts in `src/content/posts/`** — one Markdown (`.md`/`.mdx`) file per post. They appear automatically on the home page and the [Blog/archive](https://ecohydraulics.github.io/archive/). Each post starts with frontmatter:
+Put **future blog posts in `src/content/posts/`** -- one Markdown (`.md`/`.mdx`) file per post. They appear automatically on the home page and the [Blog/archive](https://ecohydraulics.github.io/archive/). Each post starts with frontmatter:
 
 ```markdown
 ---

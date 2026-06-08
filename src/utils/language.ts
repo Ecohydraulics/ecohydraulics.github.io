@@ -11,21 +11,21 @@ import {
 } from "@/config";
 
 
-// 重新导出以保持向后兼容
+// Re-export for backward compatibility
 export { SUPPORTED_LANGUAGES, type SupportedLanguage, langToTranslateMap, translateToLangMap };
 
 
-// 语言存储键
+// Language storage key
 const LANG_STORAGE_KEY = "selected-language";
 
-// 存储语言设置
+// Store the language setting
 export function setStoredLanguage(lang: string): void {
     if (typeof localStorage !== "undefined") {
         localStorage.setItem(LANG_STORAGE_KEY, lang);
     }
 }
 
-// 获取存储的语言设置
+// Get the stored language setting
 export function getStoredLanguage(): string | null {
     if (typeof localStorage !== "undefined") {
         return localStorage.getItem(LANG_STORAGE_KEY);
@@ -33,7 +33,7 @@ export function getStoredLanguage(): string | null {
     return null;
 }
 
-// 获取默认语言配置
+// Get the default language configuration
 export function getDefaultLanguage(): string {
     const fallback = siteConfig.lang;
     if (typeof document !== "undefined") {
@@ -43,111 +43,111 @@ export function getDefaultLanguage(): string {
     return fallback;
 }
 
-// 将配置文件的语言代码转换为翻译服务的语言代码
+// Convert a config language code to a translation-service language code
 export function getTranslateLanguageFromConfig(configLang: string): string {
     return langToTranslateMap[configLang] || "chinese_simplified";
 }
 
-// 获取解析后的站点语言代码
+// Get the resolved site language code
 export function getResolvedSiteLang(): SupportedLanguage {
     const configLang = getDefaultLanguage() as any;
     if (SUPPORTED_LANGUAGES.includes(configLang)) {
         return configLang as SupportedLanguage;
     }
-    // 如果 siteConfig.lang 不合规，则使用浏览器检测到的语言
+    // If siteConfig.lang is invalid, use the browser-detected language
     return detectBrowserLanguage();
 }
 
-// 将翻译服务的语言代码转换为配置文件的语言代码
+// Convert a translation-service language code to a config language code
 export function getConfigLanguageFromTranslate(translateLang: string): string {
     return translateToLangMap[translateLang] || "zh";
 }
 
-// 获取语言的显示名称
+// Get the display name of a language
 export function getLanguageDisplayName(langCode: string): string {
-    // 先尝试作为配置语言代码查找
+    // First try to look it up as a config language code
     if (langCode in LANGUAGE_CONFIG) {
         return LANGUAGE_CONFIG[langCode as SupportedLanguage].displayName;
     }
-    // 尝试作为翻译服务代码查找
+    // Try to look it up as a translation-service code
     const configLang = translateToLangMap[langCode];
     if (configLang && configLang in LANGUAGE_CONFIG) {
         return LANGUAGE_CONFIG[configLang as SupportedLanguage].displayName;
     }
-    // 如果都找不到，返回原始代码
+    // If neither is found, return the original code
     return langCode;
 }
 
-// 检测浏览器语言并返回支持的语言代码
+// Detect the browser language and return a supported language code
 export function detectBrowserLanguage(fallbackLang: SupportedLanguage = "en"): SupportedLanguage {
-    // 服务端渲染时返回备用语言
+    // Return the fallback language during server-side rendering
     if (typeof window === "undefined" || typeof navigator === "undefined") {
         return fallbackLang;
     }
-    // 获取浏览器语言列表
+    // Get the browser language list
     const browserLangs = navigator.languages || [navigator.language];
-    // 遍历浏览器语言列表，找到第一个支持的语言
+    // Iterate the browser language list and find the first supported language
     for (const browserLang of browserLangs) {
-        // 提取主语言代码（例如：'zh-CN' -> 'zh', 'en-US' -> 'en'）
-        // 区域变体在此自动归并：de-CH / de-AT -> de，fr-CH / fr-BE -> fr
+        // Extract the primary language code (e.g. 'zh-CN' -> 'zh', 'en-US' -> 'en')
+        // Regional variants are merged here automatically: de-CH / de-AT -> de, fr-CH / fr-BE -> fr
         const langCode = browserLang.toLowerCase().split("-")[0];
-        // 检查是否在支持的语言列表中
+        // Check whether it is in the supported language list
         if (SUPPORTED_LANGUAGES.includes(langCode as SupportedLanguage)) {
             return langCode as SupportedLanguage;
         }
-        // 主语种本身不受支持，但有别名映射时归并到对应语言
-        // （例如瑞士德语 'gsw' -> de，旧版希伯来语代码 'iw' -> he）
+        // The primary language itself is unsupported, but merge it into the corresponding language when an alias mapping exists
+        // (e.g. Swiss German 'gsw' -> de, legacy Hebrew code 'iw' -> he)
         if (langCode in LANGUAGE_ALIASES) {
             return LANGUAGE_ALIASES[langCode];
         }
     }
-    // 如果没有找到支持的语言，返回备用语言
+    // If no supported language is found, return the fallback language
     return fallbackLang;
 }
 
-// 获取当前站点语言（优先使用缓存，其次是浏览器/系统界面语言，最后是配置默认值）
+// Get the current site language (prefer the cache, then the browser/OS UI language, then the config default)
 // First visit (no stored choice) follows the visitor's browser/OS UI language
 // from navigator.languages — the browser's language-preference list, which is
 // the UI/content language, NOT the locale/region formatting settings.
 export function getSiteLanguage(configLang?: string): string {
-    // 优先从缓存读取：用户手动选择过的语言始终优先
+    // Read from the cache first: a language the user manually selected always takes priority
     const storedLang = getStoredLanguage();
     if (storedLang) return storedLang;
-    // 站点默认语言作为浏览器检测的兜底（浏览器语言不受支持时使用）
+    // The site default language is the fallback for browser detection (used when the browser language is unsupported)
     const defaultLang = configLang || getDefaultLanguage();
     const fallbackLang = SUPPORTED_LANGUAGES.includes(defaultLang as SupportedLanguage)
         ? (defaultLang as SupportedLanguage)
         : "en";
-    // 自动检测浏览器/系统界面语言；不受支持时回退到站点默认语言
+    // Auto-detect the browser/OS UI language; fall back to the site default when unsupported
     const browserLang = detectBrowserLanguage(fallbackLang);
     return langToTranslateMap[browserLang];
 }
 
-// 初始化翻译功能
+// Initialize the translation feature
 export function initTranslateService(): void {
     if (typeof window === "undefined" || !siteConfig.translate?.enable) return;
-    // 检查 translate.js 是否已加载
+    // Check whether translate.js has already been loaded
     const translate = (window as any).translate;
     if (!translate || (window as any).translateInitialized) return;
-    // 配置 translate.js
+    // Configure translate.js
     if (siteConfig.translate.service) {
         translate.service.use(siteConfig.translate.service);
     }
-    // 设置源语言（始终是网站渲染的语言）
+    // Set the source language (always the language the site is rendered in)
     const resolvedLang = getResolvedSiteLang();
     const sourceLang = getTranslateLanguageFromConfig(resolvedLang);
     translate.language.setLocal(sourceLang);
-    // 获取目标语言（缓存 -> 配置 -> 浏览器）
+    // Get the target language (cache -> config -> browser)
     const targetLang = getSiteLanguage(resolvedLang);
-    // 如果目标语言不同于源语言，则设置目标语言
+    // If the target language differs from the source language, set the target language
     if (targetLang && targetLang !== sourceLang) {
         translate.to = targetLang;
     }
-    // 自动识别语言
+    // Auto-detect the language
     if (siteConfig.translate.autoDiscriminate) {
         translate.setAutoDiscriminateLocalLanguage();
     }
-    // 设置忽略项
+    // Set the ignore list
     if (siteConfig.translate.ignoreClasses) {
         siteConfig.translate.ignoreClasses.forEach((className: string) => {
             translate.ignore.class.push(className);
@@ -158,13 +158,13 @@ export function initTranslateService(): void {
             translate.ignore.tag.push(tagName);
         });
     }
-    // UI 配置
+    // UI configuration
     if (siteConfig.translate.showSelectTag === false) {
         translate.selectLanguageTag.show = false;
     }
-    // 接管存储逻辑：使用自定义缓存并同步到 translate.js
+    // Take over the storage logic: use a custom cache and sync it to translate.js
     translate.storage.set = function (key: string, value: string) {
-        if (key === "to") { // translate.js 使用 "to" 存储目标语言
+        if (key === "to") { // translate.js uses "to" to store the target language
             setStoredLanguage(value);
         } else {
             localStorage.setItem(key, value);
@@ -176,45 +176,45 @@ export function initTranslateService(): void {
         }
         return localStorage.getItem(key);
     };
-    // 启动翻译监听
+    // Start the translation listener
     translate.listener.start();
     (window as any).translateInitialized = true;
-    // 如果目标语言存在且不是源语言，执行翻译
-    // 强制执行一次 execute 以确保初始化时应用翻译
+    // If a target language exists and it is not the source language, run the translation
+    // Force one execute to ensure the translation is applied on initialization
     if (translate.to && translate.to !== translate.language.getLocal()) {
-        // 延迟一小段时间执行，确保 DOM 完全就绪
+        // Delay execution slightly to ensure the DOM is fully ready
         setTimeout(() => {
             translate.execute();
         }, 10);
     } else if (translate.to === translate.language.getLocal()) {
-        // 如果目标语言就是源语言，确保处于未翻译状态
-        // 有时插件可能会残留之前的翻译状态
+        // If the target language is the source language, ensure it stays untranslated
+        // Sometimes the plugin may retain a previous translation state
         translate.reset();
     }
 }
 
-// 加载并初始化翻译功能
+// Load and initialize the translation feature
 export async function loadAndInitTranslate(): Promise<void> {
     if (typeof window === "undefined" || !siteConfig.translate?.enable) return;
     try {
-        // 检查是否已经加载
+        // Check whether it has already been loaded
         if (!(window as any).translate) {
-            // 使用动态导入，Vite 会自动处理代码分割
+            // Use a dynamic import; Vite handles code splitting automatically
             await import("@/plugins/translate");
             (window as any).translateScriptLoaded = true;
         }
-        // 初始化服务
+        // Initialize the service
         initTranslateService();
     } catch (error) {
         console.error('Failed to load or init translate.js:', error);
     }
 }
 
-// 切换语言
+// Switch the language
 export function toggleLanguage(langCode: string): void {
     const translate = (window as any).translate;
     if (!translate) return;
-    // 切换语言
+    // Switch the language
     translate.changeLanguage(langCode);
     setStoredLanguage(langCode);
 }

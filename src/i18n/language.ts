@@ -1,22 +1,22 @@
 /**
- * 统一的语言配置文件
- * 所有语言相关的映射和配置都从这里导出
+ * Unified language configuration file
+ * All language-related maps and configuration are exported from here
  */
 
 export interface LanguageConfig {
-    /** 翻译服务使用的语言代码 */
+    /** Language code used by the translation service */
     translateCode: string;
-    /** 语言显示名称 */
+    /** Language display name */
     displayName: string;
-    /** Intl.DateTimeFormat 使用的 locale */
+    /** Locale used by Intl.DateTimeFormat */
     locale: string;
-    /** 语言图标（国旗 emoji） */
+    /** Language icon (flag emoji) */
     icon: string;
 }
 
 /**
- * 支持的语言配置
- * 单一数据源，避免重复定义
+ * Supported language configuration
+ * Single source of truth, avoids duplicate definitions
  */
 export const LANGUAGE_CONFIG = {
     en: {
@@ -143,7 +143,7 @@ export const LANGUAGE_CONFIG = {
     },
 } as const satisfies Record<string, LanguageConfig>;
 
-/** 支持的语言代码列表 */
+/** List of supported language codes */
 export const SUPPORTED_LANGUAGES = Object.keys(LANGUAGE_CONFIG) as Array<
     keyof typeof LANGUAGE_CONFIG
 >;
@@ -168,8 +168,8 @@ export const LANGUAGE_ALIASES: Record<string, SupportedLanguage> = {
 };
 
 /**
- * 配置文件语言代码到翻译服务语言代码的映射
- * 自动从 LANGUAGE_CONFIG 生成
+ * Map from config language code to translation-service language code
+ * Auto-generated from LANGUAGE_CONFIG
  */
 export const langToTranslateMap: Record<string, string> = Object.fromEntries(
     Object.entries(LANGUAGE_CONFIG).map(([lang, config]) => [
@@ -179,8 +179,8 @@ export const langToTranslateMap: Record<string, string> = Object.fromEntries(
 );
 
 /**
- * 翻译服务语言代码到配置文件语言代码的映射
- * 自动从 LANGUAGE_CONFIG 生成
+ * Map from translation-service language code to config language code
+ * Auto-generated from LANGUAGE_CONFIG
  */
 export const translateToLangMap: Record<string, string> = Object.fromEntries(
     Object.entries(LANGUAGE_CONFIG).map(([lang, config]) => [
@@ -190,15 +190,15 @@ export const translateToLangMap: Record<string, string> = Object.fromEntries(
 );
 
 /**
- * 语言代码到 locale 的映射
- * 自动从 LANGUAGE_CONFIG 生成
+ * Map from language code to locale
+ * Auto-generated from LANGUAGE_CONFIG
  */
 export const langToLocaleMap: Record<string, string> = Object.fromEntries(
     Object.entries(LANGUAGE_CONFIG).map(([lang, config]) => [lang, config.locale]),
 );
 
 /**
- * 获取所有支持翻译的语言列表（用于 Translator）
+ * Get the list of all translatable languages (used by Translator)
  */
 export function getSupportedTranslateLanguages() {
     return Object.entries(LANGUAGE_CONFIG).map(([code, config]) => ({
