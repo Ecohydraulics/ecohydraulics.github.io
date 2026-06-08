@@ -183,6 +183,34 @@ const NEVER_TRANSLATE_TERMS = [
     "Community=Community",
 ].join("\n") + "\n";
 
+// Hand-written German for the landing page (the pinned welcome post rendered on
+// the home page). Client-side machine translation produces poor German grammar,
+// and the per-word overrides above make it worse by fragmenting sentences. These
+// keys are whole clauses (as they render in the DOM), so translate.js — which
+// matches the longest key first — replaces each as a single unit, giving correct
+// grammar while still honouring the chosen terms. NOTE: each key must match the
+// rendered text exactly (curly apostrophes, the intro paragraph's line break);
+// re-touch these if the English in src/content/posts/welcome.md changes.
+const GERMAN_LANDING_PINS = `
+Welcome to the online home of the=Willkommen im digitalen Zuhause der
+This website brings together the people, ideas, and resources that connect researchers and=Diese Webseite bringt Menschen, Ideen und Ressourcen zusammen, die Forschende und
+practitioners working at the interface of ecology and hydraulics around the world.=Praktizierende miteinander verbinden, die weltweit an der Schnittstelle von Ökologie und Hydraulik arbeiten.
+What you’ll find here=Was du hier findest
+the history and organization of the community and the IAHR Ecohydraulics Technical Committee.=die Geschichte und Organisation der community und des IAHR Ecohydraulics Technical Committee.
+conferences, awards, jobs, allied organizations, including the=Konferenzen, Auszeichnungen, Stellenangebote und verbündete Organisationen, darunter das
+courses, workshops, training, and learning resources.=Kurse, Workshops, Schulungen und Lernressourcen.
+Journal of Ecohydraulics=Journal of Ecohydraulics
+software guide=Softwareleitfaden
+for the field.=für das Fachgebiet.
+Get involved=Mitmachen
+This site is=Diese Seite ist
+from the community, for the community=von der community, für die community
+If you have content, events, job postings, resources to share, or a viewpoint on=Wenn du Inhalte, Veranstaltungen, Stellenausschreibungen oder Ressourcen zum Teilen oder eine Sichtweise darauf hast,
+what ecohydraulics is=was Ecohydraulics ist
+we’d love to hear from you. Follow us on=Wir würden uns freuen, von dir zu hören. Folge uns auf
+to stay up to date.=um auf dem Laufenden zu bleiben.
+`;
+
 // Register the custom term dictionary with translate.js. Must run before
 // translate.execute() so the overrides apply on the first render; the data
 // persists on the translate object, so later language switches use it too.
@@ -192,6 +220,8 @@ function registerCustomTranslationTerms(translate: any, sourceLang: string): voi
     for (const [targetLang, properties] of Object.entries(CUSTOM_TRANSLATION_TERMS)) {
         translate.nomenclature.append(sourceLang, targetLang, properties);
     }
+    // Hand-written German for key landing-page content (replaces whole clauses)
+    translate.nomenclature.append(sourceLang, "deutsch", GERMAN_LANDING_PINS);
     // Keep "ecohydraulics" identical across every supported target language
     const seen = new Set<string>([sourceLang]);
     for (const targetLang of Object.values(langToTranslateMap)) {
