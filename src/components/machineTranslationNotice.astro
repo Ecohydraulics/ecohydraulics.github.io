@@ -8,9 +8,11 @@
   this banner tells them they are reading an automatic translation that may
   contain errors, and offers a one-click way back to the English source.
 
-  The banner text itself sits in the DOM at load time, so translate.js
-  translates it into the active language too — the visitor sees the warning in
-  their own language.
+  IMPORTANT: this banner carries the "ignore" class, so translate.js leaves it
+  untouched. Letting the machine translate the *warning about machine
+  translation* produced broken grammar in every language. Instead the strings
+  below are hand-written per language and applied by the inline script based on
+  the active translation language.
 */
 ---
 
@@ -19,7 +21,7 @@
     role="status"
     aria-live="polite"
     aria-label="Machine translation notice"
-    class="hidden fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:bottom-6 md:max-w-sm z-50 card-base p-5 shadow-2xl"
+    class="ignore hidden fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:bottom-6 md:max-w-sm z-50 card-base p-5 shadow-2xl"
 >
     <div class="flex items-start gap-3">
         <svg class="shrink-0 w-6 h-6 mt-0.5 text-(--primary)" viewBox="0 0 24 24" fill="none"
@@ -30,10 +32,10 @@
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="min-w-0">
-            <h2 class="font-bold text-base text-neutral-900 dark:text-neutral-100 mb-1">
+            <h2 id="mt-notice-title" class="font-bold text-base text-neutral-900 dark:text-neutral-100 mb-1">
                 Automatic translation
             </h2>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+            <p id="mt-notice-body" class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
                 You are viewing a machine-translated version of this website. Some
                 text may contain translation errors. The original is in English.
             </p>
@@ -59,6 +61,137 @@ import {
     setStoredLanguage,
     LANGUAGE_CHANGED_EVENT,
 } from "@utils/language";
+
+// Hand-written notice strings, keyed by translate.js target-language code (the
+// same codes used in LANGUAGE_CONFIG.translateCode). English is the fallback and
+// matches the static markup. Translating these with the machine engine produced
+// wrong grammar, so they are written by hand here.
+type NoticeStrings = { title: string; body: string; original: string; dismiss: string };
+const STRINGS: Record<string, NoticeStrings> = {
+    english: {
+        title: "Automatic translation",
+        body: "You are viewing a machine-translated version of this website. Some text may contain translation errors. The original is in English.",
+        original: "View original (English)",
+        dismiss: "Got it",
+    },
+    chinese_simplified: {
+        title: "自动翻译",
+        body: "您正在浏览本网站的机器翻译版本，部分内容可能存在翻译错误。原文为英语。",
+        original: "查看原文（英语）",
+        dismiss: "知道了",
+    },
+    deutsch: {
+        title: "Automatische Übersetzung",
+        body: "Du siehst eine maschinell übersetzte Version dieser Website. Einige Texte können Übersetzungsfehler enthalten. Das Original ist auf Englisch.",
+        original: "Original ansehen (Englisch)",
+        dismiss: "Verstanden",
+    },
+    french: {
+        title: "Traduction automatique",
+        body: "Vous consultez une version traduite automatiquement de ce site web. Certains textes peuvent contenir des erreurs de traduction. L’original est en anglais.",
+        original: "Voir l’original (anglais)",
+        dismiss: "J’ai compris",
+    },
+    spanish: {
+        title: "Traducción automática",
+        body: "Está viendo una versión traducida automáticamente de este sitio web. Algunos textos pueden contener errores de traducción. El original está en inglés.",
+        original: "Ver el original (inglés)",
+        dismiss: "Entendido",
+    },
+    arabic: {
+        title: "ترجمة آلية",
+        body: "أنت تتصفّح نسخة مترجمة آليًا من هذا الموقع. قد تحتوي بعض النصوص على أخطاء في الترجمة. النص الأصلي باللغة الإنجليزية.",
+        original: "عرض النص الأصلي (الإنجليزية)",
+        dismiss: "حسنًا",
+    },
+    hebrew: {
+        title: "תרגום אוטומטי",
+        body: "אתם צופים בגרסה מתורגמת אוטומטית של אתר זה. ייתכן שחלק מהטקסטים מכילים שגיאות תרגום. המקור הוא באנגלית.",
+        original: "הצגת המקור (אנגלית)",
+        dismiss: "הבנתי",
+    },
+    russian: {
+        title: "Автоматический перевод",
+        body: "Вы просматриваете автоматически переведённую версию этого сайта. Некоторые тексты могут содержать ошибки перевода. Оригинал — на английском языке.",
+        original: "Показать оригинал (английский)",
+        dismiss: "Понятно",
+    },
+    swahili: {
+        title: "Tafsiri ya kiotomatiki",
+        body: "Unatazama toleo lililotafsiriwa kwa mashine la tovuti hii. Baadhi ya maandishi yanaweza kuwa na makosa ya tafsiri. Matini asilia iko kwa Kiingereza.",
+        original: "Tazama matini asilia (Kiingereza)",
+        dismiss: "Nimeelewa",
+    },
+    turkish: {
+        title: "Otomatik çeviri",
+        body: "Bu web sitesinin makineyle çevrilmiş bir sürümünü görüntülüyorsunuz. Bazı metinlerde çeviri hataları olabilir. Orijinali İngilizcedir.",
+        original: "Orijinali görüntüle (İngilizce)",
+        dismiss: "Anladım",
+    },
+    italian: {
+        title: "Traduzione automatica",
+        body: "Stai visualizzando una versione tradotta automaticamente di questo sito web. Alcuni testi potrebbero contenere errori di traduzione. L’originale è in inglese.",
+        original: "Vedi l’originale (inglese)",
+        dismiss: "Ho capito",
+    },
+    hungarian: {
+        title: "Automatikus fordítás",
+        body: "Ennek a webhelynek a gépi fordítású változatát nézi. Egyes szövegek fordítási hibákat tartalmazhatnak. Az eredeti angol nyelvű.",
+        original: "Eredeti megtekintése (angol)",
+        dismiss: "Értem",
+    },
+    greek: {
+        title: "Αυτόματη μετάφραση",
+        body: "Βλέπετε μια αυτόματα μεταφρασμένη έκδοση αυτού του ιστότοπου. Ορισμένα κείμενα ενδέχεται να περιέχουν σφάλματα μετάφρασης. Το πρωτότυπο είναι στα αγγλικά.",
+        original: "Προβολή πρωτοτύπου (αγγλικά)",
+        dismiss: "Το κατάλαβα",
+    },
+    japanese: {
+        title: "自動翻訳",
+        body: "このウェブサイトの機械翻訳版を表示しています。一部のテキストには翻訳の誤りが含まれる場合があります。原文は英語です。",
+        original: "原文を表示（英語）",
+        dismiss: "了解しました",
+    },
+    portuguese: {
+        title: "Tradução automática",
+        body: "Está a ver uma versão traduzida automaticamente deste site. Alguns textos podem conter erros de tradução. O original está em inglês.",
+        original: "Ver o original (inglês)",
+        dismiss: "Entendido",
+    },
+    dutch: {
+        title: "Automatische vertaling",
+        body: "U bekijkt een automatisch vertaalde versie van deze website. Sommige teksten kunnen vertaalfouten bevatten. Het origineel is in het Engels.",
+        original: "Origineel bekijken (Engels)",
+        dismiss: "Begrepen",
+    },
+    norwegian: {
+        title: "Automatisk oversettelse",
+        body: "Du ser en maskinoversatt versjon av dette nettstedet. Enkelte tekster kan inneholde oversettelsesfeil. Originalen er på engelsk.",
+        original: "Vis originalen (engelsk)",
+        dismiss: "Forstått",
+    },
+    swedish: {
+        title: "Automatisk översättning",
+        body: "Du ser en maskinöversatt version av den här webbplatsen. Vissa texter kan innehålla översättningsfel. Originalet är på engelska.",
+        original: "Visa originalet (engelska)",
+        dismiss: "Förstått",
+    },
+    polish: {
+        title: "Tłumaczenie automatyczne",
+        body: "Przeglądasz automatycznie przetłumaczoną wersję tej witryny. Niektóre teksty mogą zawierać błędy tłumaczenia. Oryginał jest w języku angielskim.",
+        original: "Zobacz oryginał (angielski)",
+        dismiss: "Rozumiem",
+    },
+    hindi: {
+        title: "स्वचालित अनुवाद",
+        body: "आप इस वेबसाइट का मशीन-अनुवादित संस्करण देख रहे हैं। कुछ पाठ में अनुवाद की त्रुटियाँ हो सकती हैं। मूल पाठ अंग्रेज़ी में है।",
+        original: "मूल देखें (अंग्रेज़ी)",
+        dismiss: "समझ गया",
+    },
+};
+
+// Right-to-left languages: flip the banner's text direction.
+const RTL = new Set<string>(["arabic", "hebrew"]);
 
 // Per-language dismissal: store the translate-service code the visitor dismissed
 // so the notice stays hidden for that language but reappears if they switch to a
@@ -89,12 +222,28 @@ function activeTargetLang(): string {
     return sourceLang;
 }
 
+// Apply the hand-written strings (and text direction) for the active language.
+function applyStrings(lang: string): void {
+    const s = STRINGS[lang] || STRINGS.english;
+    const setText = (id: string, value: string) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+    setText("mt-notice-title", s.title);
+    setText("mt-notice-body", s.body);
+    setText("mt-notice-original", s.original);
+    setText("mt-notice-dismiss", s.dismiss);
+    const banner = document.getElementById("mt-notice");
+    if (banner) banner.dir = RTL.has(lang) ? "rtl" : "ltr";
+}
+
 function refresh(): void {
     const banner = document.getElementById("mt-notice");
     if (!banner) return;
     const active = activeTargetLang();
     const translated = active !== sourceLang;
     if (translated && active !== getDismissed()) {
+        applyStrings(active);
         banner.classList.remove("hidden");
     } else {
         banner.classList.add("hidden");
