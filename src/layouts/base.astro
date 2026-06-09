@@ -23,6 +23,7 @@ import {
 import { pathsEqual, url } from "@utils/url";
 import FontLoader from "@components/fontLoader.astro";
 import CookieConsent from "@components/cookieConsent.astro";
+import MachineTranslationNotice from "@components/machineTranslationNotice.astro";
 import LoadingOverlay from "@components/loadingOverlay.astro";
 import ConfigCarrier from "@components/configCarrier.astro";
 import MusicPlayer from "@components/musicPlayer.svelte";
@@ -247,6 +248,8 @@ const { enabled: analyticsEnabled, code: analyticsCode } = getAnalyticsConfig();
         <div id="page-height-extend" class="hidden h-[300vh]"></div>
         <!-- Cookie / privacy consent (gates translation widget + web fonts) -->
         <CookieConsent />
+        <!-- Notice shown when the page is machine-translated (non-English) -->
+        <MachineTranslationNotice />
     </body>
 </html>
 

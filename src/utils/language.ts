@@ -320,6 +320,9 @@ export function initTranslateService(): void {
         // Sometimes the plugin may retain a previous translation state
         translate.reset();
     }
+    // Let the machine-translation notice (and any other listeners) re-evaluate
+    // now that translate.js has been configured with the active target language.
+    dispatchLanguageChanged();
 }
 
 // Load and initialize the translation feature
@@ -339,6 +342,17 @@ export async function loadAndInitTranslate(): Promise<void> {
     }
 }
 
+// Name of the event fired whenever the active translation language may have
+// changed. UI that depends on "is this page machine-translated?" (the machine-
+// translation notice) listens for it and re-evaluates against window.translate.
+export const LANGUAGE_CHANGED_EVENT = "language-changed";
+
+// Notify listeners that the active translation state may have changed.
+export function dispatchLanguageChanged(): void {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(new CustomEvent(LANGUAGE_CHANGED_EVENT));
+}
+
 // Switch the language
 export function toggleLanguage(langCode: string): void {
     const translate = (window as any).translate;
@@ -346,4 +360,5 @@ export function toggleLanguage(langCode: string): void {
     // Switch the language
     translate.changeLanguage(langCode);
     setStoredLanguage(langCode);
+    dispatchLanguageChanged();
 }

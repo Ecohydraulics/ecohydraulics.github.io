@@ -2,7 +2,7 @@
 import { onDestroy, onMount } from "svelte";
 
 import { BREAKPOINT_LG } from "@constants/breakpoints";
-import { getTranslateLanguageFromConfig, getSiteLanguage, setStoredLanguage, getDefaultLanguage } from "@/utils/language";
+import { getTranslateLanguageFromConfig, getSiteLanguage, setStoredLanguage, getDefaultLanguage, dispatchLanguageChanged } from "@/utils/language";
 import { onClickOutside } from "@utils/widget";
 import { siteConfig } from "@/config";
 import { getSupportedTranslateLanguages } from "@/i18n/language";
@@ -60,6 +60,8 @@ async function changeLanguage(languageCode: string) {
         setStoredLanguage(languageCode);
         // 更新当前 UI 状态
         currentLanguage = languageCode;
+        // 通知机器翻译提示条等监听器重新评估当前语言状态
+        dispatchLanguageChanged();
     } catch (error) {
         console.error("Failed to execute translation:", error);
     }

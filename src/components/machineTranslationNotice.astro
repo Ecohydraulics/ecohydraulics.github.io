@@ -1,0 +1,132 @@
+---
+/*
+  Machine-translation notice.
+
+  The site is authored in English; translate.js machine-translates it in the
+  browser to the visitor's chosen/auto-detected language (only after cookie
+  consent). Whenever the page a visitor ends up on is NOT the English original,
+  this banner tells them they are reading an automatic translation that may
+  contain errors, and offers a one-click way back to the English source.
+
+  The banner text itself sits in the DOM at load time, so translate.js
+  translates it into the active language too — the visitor sees the warning in
+  their own language.
+*/
+---
+
+<div
+    id="mt-notice"
+    role="status"
+    aria-live="polite"
+    aria-label="Machine translation notice"
+    class="hidden fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:bottom-6 md:max-w-sm z-50 card-base p-5 shadow-2xl"
+>
+    <div class="flex items-start gap-3">
+        <svg class="shrink-0 w-6 h-6 mt-0.5 text-(--primary)" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 5h7M9 3v2c0 4.42-2.69 8-6 8M5 9c0 2.5 2.91 4.36 6.5 5" stroke="currentColor"
+                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 19l3-7 3 7M14.9 17h4.2" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="min-w-0">
+            <h2 class="font-bold text-base text-neutral-900 dark:text-neutral-100 mb-1">
+                Automatic translation
+            </h2>
+            <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+                You are viewing a machine-translated version of this website. Some
+                text may contain translation errors. The original is in English.
+            </p>
+            <div class="flex flex-wrap gap-2">
+                <button id="mt-notice-original" type="button"
+                    class="rounded-lg px-4 py-2 text-sm font-bold text-white active:scale-95 transition"
+                    style="background-color: var(--primary)">
+                    View original (English)
+                </button>
+                <button id="mt-notice-dismiss" type="button"
+                    class="btn-regular rounded-lg px-4 py-2 text-sm font-medium active:scale-95 transition">
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+import {
+    getTranslateLanguageFromConfig,
+    getDefaultLanguage,
+    setStoredLanguage,
+    LANGUAGE_CHANGED_EVENT,
+} from "@utils/language";
+
+// Per-language dismissal: store the translate-service code the visitor dismissed
+// so the notice stays hidden for that language but reappears if they switch to a
+// different (also machine-translated) language.
+const DISMISS_KEY = "mt-notice-dismissed";
+
+// The English source: the language the pages are actually authored/rendered in.
+const sourceLang = getTranslateLanguageFromConfig(getDefaultLanguage());
+
+function getDismissed(): string | null {
+    try { return localStorage.getItem(DISMISS_KEY); } catch (e) { return null; }
+}
+function setDismissed(value: string): void {
+    try { localStorage.setItem(DISMISS_KEY, value); } catch (e) { /* no storage */ }
+}
+
+// The language actually being shown: only "translated" when translate.js is
+// loaded and its target differs from the source. If it never loaded (e.g.
+// cookies declined) the page is the English original, so no notice is needed.
+function activeTargetLang(): string {
+    const t = (window as any).translate;
+    if (t && t.to) {
+        const local = t.language && typeof t.language.getLocal === "function"
+            ? t.language.getLocal()
+            : null;
+        if (t.to !== local) return t.to;
+    }
+    return sourceLang;
+}
+
+function refresh(): void {
+    const banner = document.getElementById("mt-notice");
+    if (!banner) return;
+    const active = activeTargetLang();
+    const translated = active !== sourceLang;
+    if (translated && active !== getDismissed()) {
+        banner.classList.remove("hidden");
+    } else {
+        banner.classList.add("hidden");
+    }
+}
+
+function bind(): void {
+    const dismiss = document.getElementById("mt-notice-dismiss");
+    const original = document.getElementById("mt-notice-original");
+    if (dismiss) {
+        dismiss.onclick = () => { setDismissed(activeTargetLang()); refresh(); };
+    }
+    if (original) {
+        original.onclick = () => {
+            const t = (window as any).translate;
+            if (t && typeof t.changeLanguage === "function") {
+                t.changeLanguage(sourceLang);
+                setStoredLanguage(sourceLang);
+            }
+            refresh();
+        };
+    }
+}
+
+function init(): void {
+    bind();
+    refresh();
+}
+
+init();
+// Re-evaluate when the language changes (dropdown switch or initial translate.js
+// setup) and after client-side (swup) navigations, which re-render the markup.
+window.addEventListener(LANGUAGE_CHANGED_EVENT, refresh);
+document.addEventListener("astro:after-swap", init);
+</script>
