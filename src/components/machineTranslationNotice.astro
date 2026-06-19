@@ -32,9 +32,12 @@
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="min-w-0">
-            <h2 id="mt-notice-title" class="font-bold text-base text-neutral-900 dark:text-neutral-100 mb-1">
+            <!-- Not a heading element: a real <h*> here would be picked up by the
+                 table-of-contents scanner (it collects every id'd h1–h6 in the
+                 document) and show up as a phantom "Automatic translation" entry. -->
+            <div id="mt-notice-title" class="font-bold text-base text-neutral-900 dark:text-neutral-100 mb-1">
                 Automatic translation
-            </h2>
+            </div>
             <p id="mt-notice-body" class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
                 You are viewing a machine-translated version of this website. Some
                 text may contain translation errors. The original is in English.

@@ -23,6 +23,10 @@ will take you to their websites.
   — a worldwide independent organization of engineers and water specialists
   working in fields related to the hydro-environmental sciences and their
   practical application.
+- **[HyPeak Network](https://sites.google.com/view/hypeaknetwork/home)** — an
+  interdisciplinary network of researchers across hydrology, ecology, engineering,
+  and economics working to understand and sustainably manage hydropeaking, the rapid
+  artificial flow fluctuations in rivers caused by hydropower generation.
 - **[International Society for River Science (ISRS)](https://riversociety.org)**
   — fosters and develops scholarship in all disciplines contributing to
   knowledge and wise stewardship of rivers and streams as vital natural and
