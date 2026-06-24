@@ -18,7 +18,7 @@ The IAHR Ecohydraulics Technical Committee Leadership Team advises the Chair on 
 </figure>
 
 <figure style="margin:0">
-<img src="https://ecohydraulics.org/wp-content/uploads/2014/08/MicheleMossa.jpg" alt="Michele Mossa" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
+<img src="/assets/images/staff/michele.jpg" alt="Michele Mossa" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
 <figcaption style="margin-top:0.5rem"><strong>Michele Mossa</strong> — <em>Past Chair</em><br/>Full Professor of Hydraulics at the Polytechnic University of Bari; researches maritime, river, and environmental hydraulics.</figcaption>
 </figure>
 
@@ -33,12 +33,12 @@ The IAHR Ecohydraulics Technical Committee Leadership Team advises the Chair on 
 </figure>
 
 <figure style="margin:0">
-<img src="https://ecohydraulics.org/wp-content/uploads/2020/08/Donatella-Termini.jpeg" alt="Donatella Termini" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
+<img src="/assets/images/staff/donatella.jpg" alt="Donatella Termini" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
 <figcaption style="margin-top:0.5rem"><strong>Donatella Termini</strong> — <em>LT Member</em><br/>Full Professor of Hydraulics at the University of Palermo; researches fluvial morphodynamics, sediment transport, ecohydraulics, and river restoration.</figcaption>
 </figure>
 
 <figure style="margin:0">
-<img src="https://ecohydraulics.org/wp-content/uploads/2020/08/DongdongShao.jpeg" alt="Dongdong Shao" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
+<img src="/assets/images/staff/dongdongshao.jpg" alt="Dongdong Shao" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
 <figcaption style="margin-top:0.5rem"><strong>Dongdong Shao</strong> — <em>LT Member</em><br/>Professor and Head of the Department of Ecological Engineering at Beijing Normal University, China.</figcaption>
 </figure>
 
@@ -48,12 +48,12 @@ The IAHR Ecohydraulics Technical Committee Leadership Team advises the Chair on 
 </figure>
 
 <figure style="margin:0">
-<img src="https://ecohydraulics.org/wp-content/uploads/2020/08/DavideVanzo.jpg" alt="Davide Vanzo" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
+<img src="/assets/images/staff/davide.jpg" alt="Davide Vanzo" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
 <figcaption style="margin-top:0.5rem"><strong>Davide Vanzo</strong> — <em>LT Member</em><br/>Researcher at the Institute for Water and Environment (IWU), Karlsruhe Institute of Technology (KIT), Germany; develops numerical models for environmental problems.</figcaption>
 </figure>
 
 <figure style="margin:0">
-<img src="https://ecohydraulics.org/wp-content/uploads/2023/10/AndresVargasLuna.jpeg" alt="Andrés Vargas Luna" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
+<img src="/assets/images/staff/andresluna.jpg" alt="Andrés Vargas Luna" style="width:100%;height:230px;object-fit:cover;border-radius:0.75rem" />
 <figcaption style="margin-top:0.5rem"><strong>Andrés Vargas Luna</strong> — <em>LT Member</em><br/>Full Professor in the Hydraulic and Environmental group at Pontificia Universidad Javeriana (Bogotá, Colombia); works on river morphodynamics and engineering.</figcaption>
 </figure>
 
