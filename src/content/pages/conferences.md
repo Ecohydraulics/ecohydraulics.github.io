@@ -16,6 +16,14 @@ The 17th International Symposium on Ecohydraulics is scheduled for 2028, but the
 
 The 16th International Symposium on Ecohydraulics will be held at the École Polytechnique Fédérale de Lausanne (EPFL) in Lausanne, Switzerland, on **16-20 August 2026** at the Swisstech Convention Center on the EPFL campus. The last time an ISE was held physically in Europe was in 2014 in Trondheim, so it will have been more than a decade. The LOC is led by [Prof. Dr. Eng. Paolo Perona](https://people.epfl.ch/paolo.perona?lang=en) and [Dr. sc. Giovanni De Cesare](https://people.epfl.ch/giovanni.decesare?lang=en). Visit the official conference website at [ise2026.epfl.ch](https://ise2026.epfl.ch/), and watch the LOC's introduction video on the [@ecohydraulics9581 channel on YouTube](https://www.youtube.com/@ecohydraulics9581).
 
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin:1.5rem 0;padding:1.25rem 1.5rem;border:1px solid color-mix(in srgb, var(--primary), transparent 70%);border-radius:0.75rem;background:color-mix(in srgb, var(--primary), transparent 92%)">
+<div>
+<div style="font-weight:600;font-size:1.05rem">ISE 2026 — official conference website</div>
+<div style="opacity:0.8;margin-top:0.25rem">EPFL, Lausanne, Switzerland · 16–20 August 2026</div>
+</div>
+<a href="https://ise2026.epfl.ch/" target="_blank" rel="noopener" style="flex-shrink:0;text-decoration:none;font-weight:600;padding:0.6rem 1.2rem;border-radius:0.6rem;color:white;background:var(--primary);white-space:nowrap">Visit ise2026.epfl.ch ↗</a>
+</div>
+
 ### Past Symposia
 
 The ISE series grew out of the International Symposium on Habitat Hydraulics first held in 1994 and has been organized roughly every two years since. The list below is in reverse-chronological order; organizers and host institutions are noted where known.
