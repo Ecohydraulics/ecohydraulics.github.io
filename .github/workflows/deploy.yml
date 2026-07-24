@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
       - name: Install, build, and upload your site
-        uses: withastro/action@v5
+        uses: withastro/action@v6
         with:
           node-version: 24
           package-manager: pnpm@9.14.4
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   # Notify IndexNow (Bing, Yandex, …) about URLs changed in this push, once the
   # new content is live. Runs only after a successful deploy.
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Compute changed files
