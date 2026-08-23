@@ -7,7 +7,7 @@ cover: "/assets/images/banner-conferences.jpg"
 coverInContent: false
 tags: [Community, Announcement, Conferences]
 category: Conferences
-draft: true
+draft: false
 ---
 
 ## A strong week in Lausanne
