@@ -44,20 +44,20 @@ export function getPostUrl(post: any): string {
 }
 
 export function getCategoryUrl(category: string | string[] | null): string {
-    if (!category) return url("/archive/?uncategorized=true");
+    if (!category) return url("/news/?uncategorized=true");
     const parts = Array.isArray(category)
         ? category.map((item) => String(item).trim()).filter((item) => item.length > 0)
         : [category.trim()];
     const label = parts.join(CATEGORY_SEPARATOR).trim();
     if (!label || label.toLowerCase() === i18n(I18nKey.uncategorized).toLowerCase()) {
-        return url("/archive/?uncategorized=true");
+        return url("/news/?uncategorized=true");
     }
-    return url(`/archive/?category=${encodeURIComponent(label)}`);
+    return url(`/news/?category=${encodeURIComponent(label)}`);
 }
 
 export function getTagUrl(tag: string): string {
-    if (!tag) return url("/archive/");
-    return url(`/archive/?tag=${encodeURIComponent(tag.trim())}`);
+    if (!tag) return url("/news/");
+    return url(`/news/?tag=${encodeURIComponent(tag.trim())}`);
 }
 
 export function getDir(path: string): string {

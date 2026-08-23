@@ -247,9 +247,9 @@ navbar:
             url: "/ecoenet/"
             icon: "material-symbols:hub"
             description: "Early Career Ecohydraulics Network"
-        - # News (mapped to the archive preset)
+        - # News (mapped to the archive preset, served at /news/)
             name: "News"
-            url: "/archive/"
+            url: "/news/"
             icon: "material-symbols:rss-feed"
             description: "Ecohydraulics news"
 
@@ -271,7 +271,7 @@ sidebar:
                     # Match mode: 'include', 'exclude'
                     mode: "exclude"
                     # List of page path match rules (regex strings supported)
-                    paths: ["^/posts/", "^/archive"]
+                    paths: ["^/posts/", "^/news"]
             - # Component - announcement (preset)
                 # Type
                 type: "announcement"
@@ -300,7 +300,7 @@ sidebar:
                     # Match mode: 'include', 'exclude'
                     mode: "include"
                     # List of page path match rules (regex strings supported)
-                    paths: ["^/$", "^/archive$"]
+                    paths: ["^/$", "^/news$"]
 
 # Profile configuration
 profile:

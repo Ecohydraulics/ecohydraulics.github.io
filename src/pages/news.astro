@@ -1,0 +1,68 @@
+---
+export const prerender = true;
+
+import { LinkPresets } from "@constants/link-presets";
+import { LinkPreset } from "@/types/config";
+import { getSortedPosts, getSortedPostsList } from "@utils/post";
+import ArchivePanel from "@components/archivePanel.svelte";
+import PostCard from "@components/post/postCard.astro";
+import GridLayout from "@layouts/grid.astro";
+import BackwardButton from "@components/backwardButton.astro";
+
+
+const pageTitle = LinkPresets[LinkPreset.Archive].name;
+const pageDescription = LinkPresets[LinkPreset.Archive].description;
+
+// Full entries drive the card stream (same presentation as the landing page);
+// the lightweight list drives the year-grouped archive index below it.
+const posts = await getSortedPosts();
+const sortedPostsList = await getSortedPostsList();
+---
+
+<GridLayout title={pageTitle} description={pageDescription}>
+    <div class="card-base z-10 px-9 py-6 relative w-full mb-4">
+        <BackwardButton currentPath={Astro.url.pathname} />
+        <header>
+            <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
+                {pageTitle}
+            </h1>
+            {pageDescription && (
+                <p class="text-neutral-600 dark:text-neutral-400">
+                    {pageDescription}
+                </p>
+            )}
+        </header>
+    </div>
+
+    <!-- News stream -->
+    <div id="news-stream">
+        {posts.map((entry) => (
+            <PostCard entry={entry} class="mb-4"></PostCard>
+        ))}
+    </div>
+
+    <!-- Archive index: also the filter target for tag and category links -->
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+        <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
+            Archive
+        </h2>
+        <ArchivePanel sortedPosts={sortedPostsList} client:idle></ArchivePanel>
+    </div>
+</GridLayout>
+
+<script>
+    // Tag and category links land here as /news/?tag=… / ?category=…, which the
+    // archive panel filters client-side. The full card stream would contradict a
+    // filtered index, so hide it whenever a filter is active.
+    function syncNewsStream() {
+        const stream = document.getElementById("news-stream");
+        if (!stream) return;
+        const params = new URLSearchParams(window.location.search);
+        const filtered =
+            params.has("tag") || params.has("category") || params.has("uncategorized");
+        stream.classList.toggle("hidden", filtered);
+    }
+
+    syncNewsStream();
+    document.addEventListener("astro:after-swap", syncNewsStream);
+</script>

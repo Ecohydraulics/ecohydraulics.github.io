@@ -12,7 +12,7 @@ export const LinkPresets: { [key in LinkPreset]: NavbarLink } = {
     },
     [LinkPreset.Archive]: {
         name: i18n(I18nKey.archive),
-        url: "/archive/",
+        url: "/news/",
         icon: "material-symbols:archive",
         description: "A chronological list of all published posts.",
     },

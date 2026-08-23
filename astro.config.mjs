@@ -56,6 +56,10 @@ export default defineConfig({
     base: "/",
     trailingSlash: "always",
     adapter: adapter,
+    redirects: {
+        // The post listing moved to /news/; keep old links and search results working.
+        "/archive": "/news/",
+    },
     integrations: [
         decapCmsOauth({
             configPath: "./.decap.yml", // Path to the Decap CMS configuration file
@@ -154,7 +158,8 @@ export default defineConfig({
             filter: (page) =>
                 !page.includes("/admin/") &&
                 !page.includes("/atom/") &&
-                !page.includes("/rss/"),
+                !page.includes("/rss/") &&
+                !page.includes("/archive"),
         }),
     ],
     markdown: {
