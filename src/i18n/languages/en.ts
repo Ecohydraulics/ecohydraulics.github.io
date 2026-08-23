@@ -8,7 +8,7 @@ export const en: Translation = {
 
     // Navigations
     [Key.home]: "Home",
-    [Key.archive]: "Archive",
+    [Key.archive]: "News",
     [Key.about]: "About",
     [Key.search]: "Search",
 

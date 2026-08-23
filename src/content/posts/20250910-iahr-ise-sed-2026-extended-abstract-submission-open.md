@@ -23,5 +23,5 @@ Paolo Perona (chair), Giovanni De Cesare, Azin Amini, Giulio Calvani, Sara Bonet
 
 **ISE-SED 2026**  
 *International Symposium on Ecohydraulics — Swiss Ecohydraulics Day 2026*  
-16–21 August 2026, Lausanne, Switzerland  
+16–20 August 2026, Lausanne, Switzerland  
 <https://ise2026.epfl.ch/>

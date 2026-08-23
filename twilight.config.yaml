@@ -247,11 +247,11 @@ navbar:
             url: "/ecoenet/"
             icon: "material-symbols:hub"
             description: "Early Career Ecohydraulics Network"
-        - # Blog (mapped to the archive preset)
-            name: "Blog"
+        - # News (mapped to the archive preset)
+            name: "News"
             url: "/archive/"
             icon: "material-symbols:rss-feed"
-            description: "Ecohydraulics blog"
+            description: "Ecohydraulics news"
 
 # Sidebar configuration
 sidebar:
