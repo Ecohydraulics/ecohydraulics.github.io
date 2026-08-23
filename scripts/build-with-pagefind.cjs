@@ -46,6 +46,20 @@ function getPagefindOutputDir(platform) {
     return outputDirs[platform] || 'dist';
 }
 
+// Resolve a locally installed binary. Going through `npx` routes into npm, which does
+// not understand the pnpm-only settings in .npmrc (noisy warnings on every build) and
+// which silently downloads a different major version from the registry when
+// node_modules is incomplete -- failing later with a confusing error.
+function localBin(name) {
+    const bin = join(__dirname, '..', 'node_modules', '.bin', name + (process.platform === 'win32' ? '.cmd' : ''));
+    if (!existsSync(bin)) {
+        console.error(`❌ ${name} not found at ${bin}`);
+        console.error('   Dependencies are not installed. Run: pnpm install');
+        process.exit(1);
+    }
+    return `"${bin}"`;
+}
+
 // Main function
 function main() {
     const platform = detectPlatform();
@@ -57,7 +71,7 @@ function main() {
     try {
         // Run Astro build
         console.log('🔨 Running Astro build...');
-        execSync(`npx astro build`.trim(), {
+        execSync(`${localBin('astro')} build`, {
             stdio: 'inherit',
             cwd: process.cwd() // Ensure in the correct directory
         });
@@ -70,7 +84,7 @@ function main() {
 
         // Run Pagefind
         console.log(`🔍 Running Pagefind search index generation...`);
-        execSync(`npx pagefind --site ${outputDir}`, {
+        execSync(`${localBin('pagefind')} --site ${outputDir}`, {
             stdio: 'inherit',
             cwd: process.cwd() // Ensure in the correct directory
         });
