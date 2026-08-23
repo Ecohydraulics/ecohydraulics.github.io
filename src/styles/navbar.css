@@ -301,3 +301,21 @@
         font-size: 0 !important;
     }
 }
+
+/*
+ * Mobile/tablet hamburger panel.
+ *
+ * It was the only navbar float panel without an explicit z-index, so its
+ * siblings (#search-panel, #translate-panel-wrapper, the switch wrappers) all
+ * claimed z-50 and painted over the open menu. Page-level bottom sheets did
+ * too, from outside #top-row's stacking context -- that half is fixed by
+ * raising #top-row to z-60 in layouts/grid.astro.
+ */
+#nav-menu-panel {
+    z-index: 60;
+    /* vh first: fallback for browsers without dynamic viewport units. The
+       panel is anchored 5.25rem (top-21) below the viewport top, so subtract
+       more than that to keep the last entry clear of the bottom edge. */
+    max-height: calc(100vh - 6.5rem);
+    max-height: calc(100dvh - 6.5rem);
+}
