@@ -28,6 +28,8 @@ const isLocal = !(
     src.startsWith("data:")
 );
 const isPublic = src.startsWith("/");
+// Video covers (e.g. /assets/videos/clip.mp4) render as a muted, looping <video>
+const isVideo = /\.(mp4|webm|ogv|mov)(\?.*)?$/i.test(src);
 
 // TODO temporary workaround for images dynamic import
 // https://github.com/withastro/astro/issues/3373
@@ -57,5 +59,6 @@ const imageStyle = `object-position: ${position}`;
 <div id={id} class:list={[className, 'overflow-hidden relative']} style={style}>
     <div class="transition absolute inset-0 bg-black/3 dark:bg-black/9 pointer-events-none"></div>
     {isLocal && img && <Image src={img} alt={alt || ""} class={imageClass} style={imageStyle} loading={loading} decoding={decoding}/>}
-    {!isLocal && <img src={isPublic ? url(src) : src} alt={alt || ""} class={imageClass} style={imageStyle} loading={loading} decoding={decoding}/>}
+    {!isLocal && isVideo && <video src={isPublic ? url(src) : src} aria-label={alt || undefined} class={imageClass} style={imageStyle} autoplay muted loop playsinline preload="metadata"></video>}
+    {!isLocal && !isVideo && <img src={isPublic ? url(src) : src} alt={alt || ""} class={imageClass} style={imageStyle} loading={loading} decoding={decoding}/>}
 </div>

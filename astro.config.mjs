@@ -1,14 +1,11 @@
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import svelte, { vitePreprocess } from "@astrojs/svelte";
 import tailwindcss from "@tailwindcss/vite";
 import swup from "@swup/astro";
 import sitemap from "@astrojs/sitemap";
-import cloudflarePages from "@astrojs/cloudflare";
-import netlify from "@astrojs/netlify";
-import vercel from "@astrojs/vercel";
-import edgeone from "@edgeone/astro";
 import decapCmsOauth from "decap-cms-oauth-astro";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
@@ -36,16 +33,18 @@ import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
 
-// Choose adapter depending on deployment environment
+// Choose adapter depending on deployment environment.
+// Adapters are imported lazily so that only the one in use has to load
+// (e.g. @astrojs/cloudflare checks its wrangler peer dependency on import).
 const adapter = process.env.GITHUB_ACTIONS
     ? undefined
     : (process.env.CF_PAGES
-        ? cloudflarePages()
+        ? (await import("@astrojs/cloudflare")).default()
         : (process.env.NETLIFY
-            ? netlify()
+            ? (await import("@astrojs/netlify")).default()
             : (process.env.EDGEONE
-                ? edgeone()
-                : vercel({ mode: "serverless" })
+                ? (await import("@edgeone/astro")).default()
+                : (await import("@astrojs/vercel")).default({ mode: "serverless" })
             )
         )
     );
@@ -163,69 +162,71 @@ export default defineConfig({
         }),
     ],
     markdown: {
-        remarkPlugins: [
-            remarkMath,
-            remarkReadingTime,
-            remarkExcerpt,
-            remarkDirective,
-            remarkSectionize,
-            parseDirectiveNode,
-            remarkMermaid,
-        ],
-        rehypePlugins: [
-            [
-                rehypeAutolinkHeadings,
-                {
-                    behavior: "append",
-                    properties: {
-                        className: ["anchor"],
-                    },
-                    content: {
-                        type: "element",
-                        tagName: "span",
+        processor: unified({
+            remarkPlugins: [
+                remarkMath,
+                remarkReadingTime,
+                remarkExcerpt,
+                remarkDirective,
+                remarkSectionize,
+                parseDirectiveNode,
+                remarkMermaid,
+            ],
+            rehypePlugins: [
+                [
+                    rehypeAutolinkHeadings,
+                    {
+                        behavior: "append",
                         properties: {
-                            className: ["anchor-icon"],
-                            "data-pagefind-ignore": true,
+                            className: ["anchor"],
                         },
-                        children: [
-                            {
-                                type: "text",
-                                value: "#",
+                        content: {
+                            type: "element",
+                            tagName: "span",
+                            properties: {
+                                className: ["anchor-icon"],
+                                "data-pagefind-ignore": true,
                             },
-                        ],
+                            children: [
+                                {
+                                    type: "text",
+                                    value: "#",
+                                },
+                            ],
+                        },
                     },
-                },
+                ],
+                rehypeSlug,
+                rehypeKatex,
+                [
+                    rehypeComponents,
+                    {
+                        components: {
+                            github: GithubCardComponent,
+                            music: MusicCardComponent,
+                        },
+                    },
+                ],
+                [
+                    rehypeCallouts,
+                    {
+                        theme: "github",
+                        showIndicator: false,
+                        tags: {
+                            nonCollapsibleContainerTagName: "blockquote",
+                        },
+                        props: {
+                            containerProps: (node, type) => ({ className: ["admonition", `bdm-${type}`] }),
+                            titleProps: { className: "bdm-title" },
+                            contentProps: { className: "bdm-content" },
+                        },
+                    },
+                ],
+                rehypeAdmonitions,
+                rehypeMermaid,
+                rehypeLazyLoadMedia,
             ],
-            rehypeSlug,
-            rehypeKatex,
-            [
-                rehypeComponents,
-                {
-                    components: {
-                        github: GithubCardComponent,
-                        music: MusicCardComponent,
-                    },
-                },
-            ],
-            [
-                rehypeCallouts,
-                {
-                    theme: "github",
-                    showIndicator: false,
-                    tags: {
-                        nonCollapsibleContainerTagName: "blockquote",
-                    },
-                    props: {
-                        containerProps: (node, type) => ({ className: ["admonition", `bdm-${type}`] }),
-                        titleProps: { className: "bdm-title" },
-                        contentProps: { className: "bdm-content" },
-                    },
-                },
-            ],
-            rehypeAdmonitions,
-            rehypeMermaid,
-            rehypeLazyLoadMedia,
-        ],
+        }),
     },
     vite: {
         plugins: [tailwindcss()],
