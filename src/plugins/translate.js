@@ -10186,7 +10186,7 @@ var translate = {
                 jsObject = JSON.parse(jsString);
             } catch (e) {
                 try {
-                    jsObject = eval('(' + jsString + ')');
+                    jsObject = (0, eval)('(' + jsString + ')');
                 } catch (e) {
                     translate.log(e)
                     failureFunction(e);
@@ -12333,28 +12333,6 @@ setTimeout(function () {
 try {
     translate.init();
 } catch (e) { }
-
-/*js amd-cmd-commonjs start*/
-/*兼容 AMD、CMD、CommonJS 规范 - start*/
-/**
- * 兼容 AMD、CMD、CommonJS 规范
- * node 环境使用：`npm i i18n-jsautotranslate` 安装包
- */
-; (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define([], () => factory());
-    } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory();
-    } else {
-        if (typeof (root) != 'undefined') {
-            root['translate'] = factory();
-        }
-    }
-})(this, function () {
-    return translate;
-});
-/*兼容 AMD、CMD、CommonJS 规范 - end*/
-/*js amd-cmd-commonjs end*/
 
 /**
  * 导出 translate 到全局变量
