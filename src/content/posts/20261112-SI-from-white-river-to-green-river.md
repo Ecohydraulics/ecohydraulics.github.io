@@ -4,6 +4,7 @@ published: 2026-11-12
 author: 'Sebastian'
 description: 'Special Issue of the journal of ecohydraulics'
 cover: '/assets/images/SI-From-White-River-to-Green-River.jpg'
+coverInContent: true
 tags: [Community, Announcement, Journal]
 category: 'Journal'
 draft: false
