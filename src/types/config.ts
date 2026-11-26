@@ -264,6 +264,7 @@ export type WidgetComponentType =
     | "tags"
     | "statistics"
     | "toc"
+    | "youtube"
     | "linkedin"
     | "custom";
 
@@ -339,16 +340,24 @@ export type AnnouncementConfig = {
 };
 
 
-// LinkedIn follow panel configuration
-export type LinkedinConfig = {
+// "Follow us" panel configuration (one per platform)
+export type FollowPanelConfig = {
     // Panel title
     title: string;
+    // Line shown under the community name, e.g. "Video channel"
+    subtitle?: string;
     // Short call-to-action text
     description?: string;
-    // LinkedIn company page URL
+    // Channel or page URL
     url: string;
     // Button label
     buttonText: string;
+};
+
+// Follow panels shown in the sidebar (widget types "youtube" and "linkedin")
+export type FollowConfig = {
+    youtube: FollowPanelConfig;
+    linkedin: FollowPanelConfig;
 };
 
 

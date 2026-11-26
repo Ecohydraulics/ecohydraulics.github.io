@@ -1,11 +1,7 @@
 ---
-import { Icon } from "astro-icon/components";
+import { followConfig } from "@/config";
+import FollowPanel from "./followPanel.astro";
 
-import { linkedinConfig, profileConfig } from "@/config";
-import WidgetLayout from "./widgetLayout.astro";
-
-
-const config = linkedinConfig;
 
 interface Props {
     class?: string;
@@ -15,51 +11,13 @@ interface Props {
 const { class: className, style, side = "default" } = Astro.props;
 ---
 
-<WidgetLayout
-    name={config.title}
+<FollowPanel
     id={`linkedin-${side}`}
+    config={followConfig.linkedin}
+    badgeIcon="fa6-brands:linkedin-in"
+    buttonIcon="fa6-brands:linkedin"
+    color="#0a66c2"
+    hoverColor="#004182"
     class={className}
     style={style}
->
-    <div class="flex flex-col gap-3">
-        <a
-            href={config.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={config.buttonText}
-            class="flex items-center gap-3 rounded-xl p-2 -mx-2 transition hover:bg-(--btn-plain-bg-hover)"
-        >
-            <span class="linkedin-badge flex items-center justify-center shrink-0 h-11 w-11 rounded-lg text-white">
-                <Icon name="fa6-brands:linkedin-in" class="text-[1.5rem]" />
-            </span>
-            <span class="flex flex-col min-w-0">
-                <span class="font-bold text-neutral-900 dark:text-neutral-100 transition">{profileConfig.name}</span>
-                <span class="text-sm text-neutral-500 dark:text-neutral-400 transition">Company page on LinkedIn</span>
-            </span>
-        </a>
-        {config.description && (
-            <div class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                {config.description}
-            </div>
-        )}
-        <a
-            href={config.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="linkedin-follow flex items-center justify-center gap-2 rounded-lg h-10 px-3 font-bold text-white active:scale-95 transition"
-        >
-            <Icon name="fa6-brands:linkedin" class="text-[1.25rem]" />
-            {config.buttonText}
-        </a>
-    </div>
-</WidgetLayout>
-
-<style>
-    .linkedin-badge,
-    .linkedin-follow {
-        background-color: #0a66c2;
-    }
-    .linkedin-follow:hover {
-        background-color: #004182;
-    }
-</style>
+/>

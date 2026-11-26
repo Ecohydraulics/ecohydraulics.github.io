@@ -1,0 +1,65 @@
+---
+import { Icon } from "astro-icon/components";
+
+import type { FollowPanelConfig } from "@/types/config";
+import { profileConfig } from "@/config";
+import WidgetLayout from "./widgetLayout.astro";
+
+
+// Shared "follow us" panel used by the youtube and linkedin sidebar widgets
+interface Props {
+    id: string;
+    config: FollowPanelConfig;
+    // Brand icon shown in the badge and on the button
+    badgeIcon: string;
+    buttonIcon: string;
+    // Brand colors (button and badge background, button hover)
+    color: string;
+    hoverColor: string;
+    class?: string;
+    style?: string;
+}
+const { id, config, badgeIcon, buttonIcon, color, hoverColor, class: className, style } = Astro.props;
+const brandVars = `--follow-brand: ${color}; --follow-brand-hover: ${hoverColor}`;
+---
+
+<WidgetLayout
+    name={config.title}
+    id={id}
+    class={className}
+    style={style}
+>
+    <div class="flex flex-col gap-3" style={brandVars}>
+        <a
+            href={config.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={config.buttonText}
+            class="flex items-center gap-3 rounded-xl p-2 -mx-2 transition hover:bg-(--btn-plain-bg-hover)"
+        >
+            <span class="flex items-center justify-center shrink-0 h-11 w-11 rounded-lg text-white bg-(--follow-brand)">
+                <Icon name={badgeIcon} class="text-[1.5rem]" />
+            </span>
+            <span class="flex flex-col min-w-0">
+                <span class="font-bold text-neutral-900 dark:text-neutral-100 transition">{profileConfig.name}</span>
+                {config.subtitle && (
+                    <span class="text-sm text-neutral-500 dark:text-neutral-400 transition">{config.subtitle}</span>
+                )}
+            </span>
+        </a>
+        {config.description && (
+            <div class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                {config.description}
+            </div>
+        )}
+        <a
+            href={config.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-2 rounded-lg h-10 px-3 font-bold text-white bg-(--follow-brand) hover:bg-(--follow-brand-hover) active:scale-95 transition"
+        >
+            <Icon name={buttonIcon} class="text-[1.25rem]" />
+            {config.buttonText}
+        </a>
+    </div>
+</WidgetLayout>

@@ -261,18 +261,12 @@ sidebar:
         left: []
         # Right sidebar
         right:
-            - # Component - profile (preset)
+            - # Component - YouTube follow panel (configured in the follow section below)
                 # Type
-                type: "profile"
+                type: "youtube"
                 # Position strategy ("top" fixed at top | "sticky")
-                position: "top"
-                # Page visibility configuration
-                visibility:
-                    # Match mode: 'include', 'exclude'
-                    mode: "exclude"
-                    # List of page path match rules (regex strings supported)
-                    paths: ["^/posts/", "^/news"]
-            - # Component - LinkedIn follow panel (configured in the linkedin section below)
+                position: "sticky"
+            - # Component - LinkedIn follow panel (configured in the follow section below)
                 # Type
                 type: "linkedin"
                 # Position strategy ("top" fixed at top | "sticky")
@@ -311,16 +305,30 @@ announcement:
         # Whether it is an external link
         external: false
 
-# LinkedIn follow panel configuration (sidebar component type "linkedin")
-linkedin:
-    # Panel title
-    title: "Follow us"
-    # Short call-to-action text
-    description: "News, events and job openings from the Ecohydraulics community, straight to your LinkedIn feed."
-    # LinkedIn company page URL
-    url: "https://www.linkedin.com/company/ecohydraulics"
-    # Button label
-    buttonText: "Follow on LinkedIn"
+# Follow panels in the sidebar (component types "youtube" and "linkedin")
+follow:
+    youtube:
+        # Panel title
+        title: "Follow us on YouTube"
+        # Line shown under the community name
+        subtitle: "Video channel"
+        # Short call-to-action text
+        description: "Interviews with the people and ideas behind ecohydraulics."
+        # Channel URL
+        url: "https://www.youtube.com/@ecohydraulics9581"
+        # Button label
+        buttonText: "Subscribe on YouTube"
+    linkedin:
+        # Panel title
+        title: "Follow us on LinkedIn"
+        # Line shown under the community name
+        subtitle: "Company page"
+        # Short call-to-action text
+        description: "News, events and job openings from the Ecohydraulics community, straight to your LinkedIn feed."
+        # LinkedIn company page URL
+        url: "https://www.linkedin.com/company/ecohydraulics"
+        # Button label
+        buttonText: "Follow on LinkedIn"
 
 # Post configuration
 post:

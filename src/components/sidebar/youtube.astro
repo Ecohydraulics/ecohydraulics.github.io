@@ -1,0 +1,23 @@
+---
+import { followConfig } from "@/config";
+import FollowPanel from "./followPanel.astro";
+
+
+interface Props {
+    class?: string;
+    style?: string;
+    side?: string;
+}
+const { class: className, style, side = "default" } = Astro.props;
+---
+
+<FollowPanel
+    id={`youtube-${side}`}
+    config={followConfig.youtube}
+    badgeIcon="fa6-brands:youtube"
+    buttonIcon="fa6-brands:youtube"
+    color="#cc0000"
+    hoverColor="#a30000"
+    class={className}
+    style={style}
+/>
