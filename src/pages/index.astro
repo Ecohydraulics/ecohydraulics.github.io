@@ -15,8 +15,11 @@ import Carousel from "@components/carousel.astro";
 const allPosts = await getSortedPosts();
 const welcome = allPosts.find((p) => p.id.endsWith("welcome")) ?? null;
 const WelcomeContent = welcome ? (await render(welcome)).Content : null;
-// Carousel rotates through the 5 most recent posts (getSortedPosts is newest-first).
-const carouselPosts = allPosts.filter((p) => p !== welcome).slice(0, 5);
+// News panel (getSortedPosts is newest-first): the two newest posts are always
+// shown, and the third slot rotates through the 3rd to 5th newest posts.
+const newsPosts = allPosts.filter((p) => p !== welcome);
+const fixedNewsPosts = newsPosts.slice(0, 2);
+const rotatingNewsPosts = newsPosts.slice(2, 5);
 
 // Latest videos from the @ecohydraulics9581 channel (fetched at build time).
 const videos = await getChannelVideos(12);
@@ -35,19 +38,29 @@ const videos = await getChannelVideos(12);
         </section>
     )}
 
-    <!-- News: one panel rotating through all posts -->
-    {carouselPosts.length > 0 && (
+    <!-- News: the two newest posts, then one slot rotating through the 3rd to 5th newest -->
+    {newsPosts.length > 0 && (
         <section class="card-base px-4 py-5 md:px-6 mb-4">
             <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-4 px-1">
                 News
             </h2>
-            <Carousel autoplay={7000} ariaLabel="News posts" class="px-8">
-                {carouselPosts.map((entry) => (
-                    <div class="ehy-slide w-full shrink-0 snap-start px-1">
+            <div class="flex flex-col gap-4">
+                <!-- px-9 matches the carousel's px-8 + slide px-1 so all cards align -->
+                {fixedNewsPosts.map((entry) => (
+                    <div class="px-9">
                         <PostCard entry={entry} />
                     </div>
                 ))}
-            </Carousel>
+                {rotatingNewsPosts.length > 0 && (
+                    <Carousel autoplay={7000} ariaLabel="More news posts" class="px-8">
+                        {rotatingNewsPosts.map((entry) => (
+                            <div class="ehy-slide w-full shrink-0 snap-start px-1">
+                                <PostCard entry={entry} />
+                            </div>
+                        ))}
+                    </Carousel>
+                )}
+            </div>
         </section>
     )}
 

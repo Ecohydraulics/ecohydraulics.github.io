@@ -43,7 +43,9 @@ const { class: className, autoplay = 0, ariaLabel = "carousel" } = Astro.props;
     .ehy-track::-webkit-scrollbar {
         display: none;
     }
-    .ehy-dot {
+    /* Dots are created in the script below, so they lack Astro's scope attribute:
+       these selectors must be global or the dots render at zero size. */
+    :global(.ehy-dot) {
         width: 0.5rem;
         height: 0.5rem;
         border-radius: 9999px;
@@ -51,7 +53,7 @@ const { class: className, autoplay = 0, ariaLabel = "carousel" } = Astro.props;
         transition: all 0.25s;
         cursor: pointer;
     }
-    .ehy-dot.active {
+    :global(.ehy-dot.active) {
         background: var(--primary);
         width: 1.25rem;
     }
