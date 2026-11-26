@@ -264,6 +264,7 @@ export type WidgetComponentType =
     | "tags"
     | "statistics"
     | "toc"
+    | "linkedin"
     | "custom";
 
 
@@ -335,6 +336,19 @@ export type AnnouncementConfig = {
         // Whether it is an external link
         external?: boolean;
     };
+};
+
+
+// LinkedIn follow panel configuration
+export type LinkedinConfig = {
+    // Panel title
+    title: string;
+    // Short call-to-action text
+    description?: string;
+    // LinkedIn company page URL
+    url: string;
+    // Button label
+    buttonText: string;
 };
 
 

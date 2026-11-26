@@ -272,35 +272,11 @@ sidebar:
                     mode: "exclude"
                     # List of page path match rules (regex strings supported)
                     paths: ["^/posts/", "^/news"]
-            - # Component - announcement (preset)
+            - # Component - LinkedIn follow panel (configured in the linkedin section below)
                 # Type
-                type: "announcement"
-                # Position strategy ("top" fixed at top | "sticky")
-                position: "top"
-                # Page visibility configuration
-                visibility:
-                    # Match mode: 'include', 'exclude'
-                    mode: "include"
-                    # List of page path match rules (regex strings supported)
-                    paths: ["^/$"]
-            - # Component - table of contents (preset)
-                # Type
-                type: "toc"
+                type: "linkedin"
                 # Position strategy ("top" fixed at top | "sticky")
                 position: "sticky"
-                # TOC depth (1-6, 1 shows only h1 headings, 2 shows h1 and h2, and so on)
-                depth: 3
-            - # Component - post statistics (preset)
-                # Type
-                type: "statistics"
-                # Position strategy ("top" fixed at top | "sticky")
-                position: "sticky"
-                # Page visibility configuration
-                visibility:
-                    # Match mode: 'include', 'exclude'
-                    mode: "include"
-                    # List of page path match rules (regex strings supported)
-                    paths: ["^/$", "^/news$"]
 
 # Profile configuration
 profile:
@@ -334,6 +310,17 @@ announcement:
         url: "/about/"
         # Whether it is an external link
         external: false
+
+# LinkedIn follow panel configuration (sidebar component type "linkedin")
+linkedin:
+    # Panel title
+    title: "Follow us"
+    # Short call-to-action text
+    description: "News, events and job openings from the Ecohydraulics community, straight to your LinkedIn feed."
+    # LinkedIn company page URL
+    url: "https://www.linkedin.com/company/ecohydraulics"
+    # Button label
+    buttonText: "Follow on LinkedIn"
 
 # Post configuration
 post:

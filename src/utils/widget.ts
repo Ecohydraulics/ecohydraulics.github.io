@@ -17,6 +17,7 @@ export const WIDGET_COMPONENT_MAP = {
     tags: "@components/sidebar/tags.astro",
     toc: "@components/sidebar/toc.astro",
     statistics: "@components/sidebar/statistics.astro",
+    linkedin: "@components/sidebar/linkedin.astro",
     custom: null, // custom components must specify their path in the config
 } as const;
 

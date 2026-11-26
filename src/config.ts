@@ -8,6 +8,7 @@ import type {
     SidebarConfig,
     ProfileConfig,
     AnnouncementConfig,
+    LinkedinConfig,
     PostConfig,
     FooterConfig,
     ParticleConfig,
@@ -27,6 +28,7 @@ type ConfigFile = {
     sidebar: SidebarConfig;
     profile: ProfileConfig;
     announcement: AnnouncementConfig;
+    linkedin: LinkedinConfig;
     post: PostConfig;
     footer: FooterConfig;
     particle: ParticleConfig;
@@ -109,6 +111,9 @@ export const profileConfig: ProfileConfig = config.profile;
 
 // Announcement configuration
 export const announcementConfig: AnnouncementConfig = config.announcement;
+
+// LinkedIn follow panel configuration
+export const linkedinConfig: LinkedinConfig = config.linkedin;
 
 // Post configuration
 export const postConfig: PostConfig = resolvedPostConfig;
